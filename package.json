@@ -4,5 +4,25 @@
     "ejs": "^3.1.10",
     "express": "^5.1.0",
     "express-validator": "^7.3.0"
-  }
+  },
+  "name": "elgoog-drive",
+  "version": "1.0.0",
+  "description": "A project that lets users upload files and share files, using NodeJS, Express and Prisma.",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node --watch app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JosefPCT/Elgoog-Drive.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JosefPCT/Elgoog-Drive/issues"
+  },
+  "homepage": "https://github.com/JosefPCT/Elgoog-Drive#readme"
 }
