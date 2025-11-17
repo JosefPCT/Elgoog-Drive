@@ -1,6 +1,13 @@
+const { PrismaClient } = require('../generated/prisma')
 
-module.exports.indexGetRoute = (req, res, next) => {
-  res.render('index', {
+const prisma = new PrismaClient();
+
+
+module.exports.indexGetRoute = async(req, res, next) => {
+    // const allusers = await prisma.user.findMany();
+    // res.send(allusers);
+
+    res.render('index', {
     title: 'Home'
   });
 }
