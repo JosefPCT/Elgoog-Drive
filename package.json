@@ -9,7 +9,9 @@
   "version": "1.0.0",
   "description": "A project that lets users upload files and share files, using NodeJS, Express and Prisma.",
   "main": "index.js",
-  "devDependencies": {},
+  "devDependencies": {
+    "prisma": "^6.19.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node --watch app.js"
