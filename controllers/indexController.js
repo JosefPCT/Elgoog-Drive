@@ -96,6 +96,14 @@ module.exports.indexGetRoute = async (req, res, next) => {
   //   }
   //   console.log(req.session);
 
+  // const user = await prisma.user.findFirst({
+  //     where: {
+  //       email: "test@gmail.com",
+  //     },
+  //   });
+
+  //   console.log(user.hash);
+
   res.render("index", {
     title: "Home",
   });
