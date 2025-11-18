@@ -1,8 +1,10 @@
 const express = require('express');
 const expressSession = require('express-session');
 const { PrismaSessionStore } = require('@quixo3/prisma-session-store');
-const pclient = require('./db/client');
+const passport = require('passport');
+const path = require('path');
 
+const pclient = require('./db/client');
 const indexRouter = require('./routes/index'); 
 
 require('dotenv').config();
@@ -13,9 +15,11 @@ app.set('view engine', 'ejs');
 app.set('views', './views');
 
 // Parsers
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+// Session and SessionStore Setup
 app.use(
     expressSession({
         cookie: {
@@ -35,6 +39,20 @@ app.use(
 
     })
 )
+
+// Passport Setup
+require('./config/passport');
+
+// Has to do with serialize and deserialize of user
+// Express session gives us access to the `req.session` object anything we store in the req.session object will persist into the database under the 'session' collection/table
+app.use(passport.session());
+
+// Logger Middleware
+app.use((req, res, next) => {
+  console.log(req.session);
+  console.log(req.user);
+  next();
+});
 
 app.use('/', indexRouter);
 
