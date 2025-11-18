@@ -1,0 +1,28 @@
+<%- include('partials/header.ejs') %>
+<h1>Register</h1>
+<%- include('partials/errors.ejs') %>
+<form action="/register" method="post">
+  <label for="email">Email:</label>
+  <input type="email" name="email" id="email">
+  <br>
+
+  <label for="password">Password:</label>
+  <input type="password" name="password" id="password">
+  <br>
+
+  <label for="confirm_password">Confirm Password:</label>
+  <input type="password" name="confirm_password" id="confirm_password">
+  <br>
+
+  <label for="first_name">First Name: </label>
+  <input type="text" name="first_name" id="first_name">
+  <br>
+
+  <label for="last_name">Last Name:</label>
+  <input type="text" name="last_name" id="last_name">
+  <br>
+
+  <button type="submit">Register</button>
+</form>
+
+<%- include('partials/footer.ejs') %>

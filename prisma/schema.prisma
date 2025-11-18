@@ -15,14 +15,16 @@ datasource db {
 }
 
 model User {
-  id      Int      @id @default(autoincrement())
-  email   String   @unique
-  name    String?
+  id        Int     @id @default(autoincrement())
+  email     String  @unique
+  hash      String
+  firstName String?
+  lastName  String?
 }
 
 model Session {
   id        String   @id
   sid       String   @unique
-  data      String   @db.Text  // MediumText may be needed for MySql
-  expiresAt   DateTime
+  data      String   @db.Text // MediumText may be needed for MySql
+  expiresAt DateTime
 }

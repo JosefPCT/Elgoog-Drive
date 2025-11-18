@@ -1,5 +1,8 @@
 const prisma = require("../db/client");
 
+// Post Routes
+
+// Get Routes
 module.exports.indexGetRoute = async (req, res, next) => {
   // const allusers = await prisma.user.findMany();
   // res.send(allusers);
@@ -16,3 +19,9 @@ module.exports.indexGetRoute = async (req, res, next) => {
     title: "Home",
   });
 };
+
+module.exports.registerGetRoute = (req, res, next) => {
+  res.render("register", {
+    title: 'Register',
+  })
+}

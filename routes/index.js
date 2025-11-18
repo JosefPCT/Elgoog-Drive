@@ -6,5 +6,7 @@ const router = Router();
 
 router.get("/", controller.indexGetRoute);
 
+router.get('/register', controller.registerGetRoute);
+
 module.exports = router;
 
