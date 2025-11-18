@@ -1,7 +1,9 @@
+const passport = require('passport');
 const { body, validationResult, matchedData } = require("express-validator");
 
 const prisma = require("../db/client");
 const { validatePassword, genPassword } = require("./utils/passwordUtils");
+const { isAuth } = require('./utils/authMiddleware');
 
 // Validation
 const emptyErr = `must not be empty`;
