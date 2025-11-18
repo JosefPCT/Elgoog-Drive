@@ -145,7 +145,10 @@ module.exports.loginFailureGetRoute = (req, res, next) => {
 module.exports.driveGetRoute = [
   isAuth,
   async(req, res, next) => {
-    res.send("Drive Route");
+    res.render('drive', {
+      title: 'My Drive',
+      user: req.user,
+    })
   }
 ]
 
