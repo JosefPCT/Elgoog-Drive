@@ -131,15 +131,23 @@ module.exports.loginGetRoute = (req, res, next) => {
 }
 
 module.exports.loginSuccessGetRoute = (req, res, next) => {
-  console.log('Success, showing user');
+  console.log('Login Success, showing user');
   console.log(req.user);
   // res.send("Login successs");
-  res.redirect('/protected-route');
+  // res.redirect('/protected-route');
+  res.redirect('/drive');
 }
 
 module.exports.loginFailureGetRoute = (req, res, next) => {
   res.send('You entered the wrong password.');
 }
+
+module.exports.driveGetRoute = [
+  isAuth,
+  async(req, res, next) => {
+    res.send("Drive Route");
+  }
+]
 
 module.exports.protectedGetRoute = [
   isAuth,
