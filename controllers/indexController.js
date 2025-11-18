@@ -85,6 +85,13 @@ module.exports.registerPostRoute = [
   },
 ];
 
+module.exports.loginPostRoute = [
+  passport.authenticate('local', {
+    failureRedirect: '/login-failure',
+    successRedirect: '/login-success'
+  })
+]
+
 // Get Routes
 module.exports.indexGetRoute = async (req, res, next) => {
   // const allusers = await prisma.user.findMany();
@@ -121,4 +128,31 @@ module.exports.loginGetRoute = (req, res, next) => {
   res.render('login', {
     title: 'Login'
   })
+}
+
+module.exports.loginSuccessGetRoute = (req, res, next) => {
+  console.log('Success, showing user');
+  console.log(req.user);
+  // res.send("Login successs");
+  res.redirect('/protected-route');
+}
+
+module.exports.loginFailureGetRoute = (req, res, next) => {
+  res.send('You entered the wrong password.');
+}
+
+module.exports.protectedGetRoute = [
+  isAuth,
+  async(req, res, next) => {
+    res.send("Protected Route");
+  }
+]
+
+module.exports.logoutGetRoute = (req, res, next) => {
+  // `req.logout()` is now asynchronous now needs a callback
+  req.logout((err) => {
+    if(err) { return next(err); }
+    // res.redirect('/protected-route');
+    res.redirect('/');
+  });
 }

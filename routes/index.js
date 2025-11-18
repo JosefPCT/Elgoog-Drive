@@ -10,6 +10,15 @@ router.get('/register', controller.registerGetRoute);
 router.post('/register', controller.registerPostRoute);
 
 router.get('/login', controller.loginGetRoute);
+router.post('/login', controller.loginPostRoute);
+
+router.get('/login-success', controller.loginSuccessGetRoute);
+router.get('/login-failure', controller.loginFailureGetRoute);
+
+router.get('/logout', controller.logoutGetRoute);
+
+router.get('/protected-route', controller.protectedGetRoute);
+
 
 module.exports = router;
 
