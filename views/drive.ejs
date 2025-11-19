@@ -5,4 +5,10 @@
   <p>Hello, <%= user.firstName %></p>
 <% } %> 
 
+<form action="/drive" method="post">
+  <input type="file" name="testFile" id="test">
+  <button type="submit">Submit file</button>
+</form>
+
+
 <%- include('partials/footer.ejs') %>

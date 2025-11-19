@@ -92,6 +92,13 @@ module.exports.loginPostRoute = [
   })
 ]
 
+module.exports.drivePostRoute = [
+  async(req, res, next) => {
+    console.log(req.body);
+    res.send('aa');
+  }
+]
+
 // Get Routes
 module.exports.indexGetRoute = async (req, res, next) => {
   // const allusers = await prisma.user.findMany();
