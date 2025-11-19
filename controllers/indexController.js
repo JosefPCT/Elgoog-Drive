@@ -4,6 +4,7 @@ const { body, validationResult, matchedData } = require("express-validator");
 const prisma = require("../db/client");
 const { validatePassword, genPassword } = require("./utils/passwordUtils");
 const { isAuth } = require('./utils/authMiddleware');
+const upload = require("../config/multer");
 
 // Validation
 const emptyErr = `must not be empty`;
@@ -93,8 +94,10 @@ module.exports.loginPostRoute = [
 ]
 
 module.exports.drivePostRoute = [
+  upload.single("uploaded_file"),
   async(req, res, next) => {
     console.log(req.body);
+    console.log('File object', req.file);
     res.send('aa');
   }
 ]
