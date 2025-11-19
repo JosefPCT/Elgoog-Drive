@@ -5,8 +5,12 @@
   <p>Hello, <%= user.firstName %></p>
 <% } %> 
 
-<form action="/drive" method="post">
-  <input type="file" name="testFile" id="test">
+<form action="/drive" method="post" enctype="multipart/form-data">
+  <label for="textInput">Test Text Input:</label>
+  <input type="text" name="textInput" id="textInput"><br>
+
+  <label for="uploaded_file">Upload your file:</label>
+  <input type="file" name="uploaded_file" id="uploaded_file"><br>
   <button type="submit">Submit file</button>
 </form>
 
