@@ -1,6 +1,7 @@
 {
   "dependencies": {
-    "@prisma/client": "^6.19.0",
+    "@prisma/adapter-pg": "^7.0.0",
+    "@prisma/client": "^7.0.0",
     "@quixo3/prisma-session-store": "^3.1.13",
     "bcryptjs": "^3.0.3",
     "dotenv": "^17.2.3",
@@ -17,7 +18,7 @@
   "description": "A project that lets users upload files and share files, using NodeJS, Express and Prisma.",
   "main": "index.js",
   "devDependencies": {
-    "prisma": "^6.19.0"
+    "prisma": "^7.0.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
