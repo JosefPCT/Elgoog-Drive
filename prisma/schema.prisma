@@ -14,17 +14,28 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id        Int     @id @default(autoincrement())
-  email     String  @unique
-  hash      String
-  firstName String?
-  lastName  String?
-}
-
 model Session {
   id        String   @id
   sid       String   @unique
   data      String   @db.Text // MediumText may be needed for MySql
   expiresAt DateTime
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  hash      String
+  firstName String?
+  lastName  String?
+  folders   Folder[]
+}
+
+model Folder {
+  id         Int      @id @default(autoincrement())
+  name       String   @default("New Folder")
+  userId     Int
+  user       User     @relation(fields: [userId], references: [id])
+  parentId   Int?
+  parent     Folder?  @relation("ParentSubFolderRel", fields: [parentId], references: [id])
+  subfolders Folder[] @relation("ParentSubFolderRel")
 }
