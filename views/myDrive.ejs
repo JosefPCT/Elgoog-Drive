@@ -2,8 +2,20 @@
 
 <h1>My Drive</h1>
 
-<a href="/drive/folder/new">Add New Folder</a>
+<!-- <a href="/drive/folder/new">Add New Folder</a> -->
+<button id="openModalBtn">Add New Folder</button>
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <form action="/drive/folder/new" method="post">
+            <label for="folder_name">New Folder Name:</label>
+            <input type="text" name="folder_name" id="folder_name" placeholder="Untitled Folder" required>
+            <button type="submit">Create Folder</button>
+        </form>
+    </div>
+</div>
 
 <a href="/drive/file/new">Upload New File</a>
 
+<script src="/js/modal.js"></script>
 <%- include('partials/footer.ejs') %>
