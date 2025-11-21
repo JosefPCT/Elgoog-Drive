@@ -1,7 +1,7 @@
 const passport = require('passport');
 const { body, validationResult, matchedData } = require("express-validator");
 
-const prisma = require("../db/client");
+const queries = require("../db/queries");
 const { validatePassword, genPassword } = require("./utils/passwordUtils");
 const { isAuth } = require('./utils/authMiddleware');
 const upload = require("../config/multer");
@@ -19,11 +19,7 @@ const isSamePass = (value, { req }) => {
 };
 
 const emailExists = async (value) => {
-  const data = await prisma.user.findFirst({
-    where: {
-      email: value,
-    },
-  });
+  const data = await queries.findUserByEmail(value);
   if (data) {
     throw new Error(emailAlreadyExistsErr);
   }
@@ -73,14 +69,7 @@ module.exports.registerPostRoute = [
     const hashedPass = await genPassword(password);
     const hash = hashedPass.hash;
 
-    await prisma.user.create({
-      data: {
-        email: email,
-        hash: hash,
-        firstName: first_name,
-        lastName: last_name,
-      },
-    });
+    await queries.createUserAndMainFolder(email,hash, first_name,last_name);
 
     res.send("Post route");
   },

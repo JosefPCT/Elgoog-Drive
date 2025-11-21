@@ -7,5 +7,7 @@ const router = Router();
 router.get('/', controller.driveGetRoute);
 router.post('/', controller.drivePostRoute);
 
+router.get('/my-drive', controller.myDriveGetRoute);
+
 module.exports = router;
 
