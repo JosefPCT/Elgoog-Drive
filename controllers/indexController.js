@@ -93,14 +93,7 @@ module.exports.loginPostRoute = [
   })
 ]
 
-module.exports.drivePostRoute = [
-  upload.single("uploaded_file"),
-  async(req, res, next) => {
-    console.log(req.body);
-    console.log('File object', req.file);
-    res.send('aa');
-  }
-]
+
 
 // Get Routes
 module.exports.indexGetRoute = async (req, res, next) => {
@@ -152,15 +145,7 @@ module.exports.loginFailureGetRoute = (req, res, next) => {
   res.send('You entered the wrong password.');
 }
 
-module.exports.driveGetRoute = [
-  isAuth,
-  async(req, res, next) => {
-    res.render('drive', {
-      title: 'My Drive',
-      user: req.user,
-    })
-  }
-]
+
 
 module.exports.protectedGetRoute = [
   isAuth,

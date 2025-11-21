@@ -19,8 +19,6 @@ router.get('/logout', controller.logoutGetRoute);
 
 router.get('/protected-route', controller.protectedGetRoute);
 
-router.get('/drive', controller.driveGetRoute);
-router.post('/drive', controller.drivePostRoute);
 
 module.exports = router;
 

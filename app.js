@@ -6,6 +6,7 @@ const path = require('path');
 
 const pclient = require('./db/client');
 const indexRouter = require('./routes/index'); 
+const driveRouter = require('./routes/driveRoute');
 
 require('dotenv').config();
 const app = express();
@@ -58,6 +59,7 @@ app.use((req, res, next) => {
 
 
 app.use('/', indexRouter);
+app.use('/drive', driveRouter);
 
 app.listen(PORT, () => {
   console.log("Listening to Port", PORT);
