@@ -27,6 +27,7 @@ module.exports.driveGetRoute = [
   },
 ];
 
+// Gets the current user in the session and uses the id of that user to search for its main drive/folder
 module.exports.myDriveGetRoute = [
   isAuth,
   async (req, res, next) => {
@@ -34,6 +35,11 @@ module.exports.myDriveGetRoute = [
 
     const myDrive = await queries.getMainDriveOfUserById(currentUser.id);
     console.log(myDrive);
-    res.send(myDrive);
+
+
+
+    res.render('myDrive', {
+        title: 'My Drive'
+    });
   },
 ];
