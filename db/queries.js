@@ -15,6 +15,9 @@ module.exports.getMainDriveOfUserById = async (id) => {
     where: {
       userId: id,
     },
+    include: {
+      subfolders: true
+    }
   });
 };
 

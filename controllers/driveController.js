@@ -36,14 +36,14 @@ module.exports.myDriveGetRoute = [
     const myDrive = await queries.getMainDriveOfUserById(currentUser.id);
     console.log('Drive', myDrive);
 
-    const data = await queries.getFoldersByParentId(myDrive.id)
-    console.log('Folders', data);
+    // const data = await queries.getFoldersByParentId(myDrive.id)
+    // console.log('Folders', data);
 
 
     res.render('myDrive', {
         title: 'My Drive',
         folderId: myDrive.id,
-        data: data
+        data: myDrive.subfolders
     });
   },
 ];
