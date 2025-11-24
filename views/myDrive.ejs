@@ -2,20 +2,44 @@
 
 <h1>My Drive</h1>
 
-<!-- <a href="/drive/folder/new">Add New Folder</a> -->
-<button id="openModalBtn">Add New Folder</button>
-<div id="myModal" class="modal">
-    <div class="modal-content">
-        <span class="close-button">&times;</span>
-        <form action="/drive/folder/new" method="post">
-            <label for="folder_name">New Folder Name:</label>
-            <input type="text" name="folder_name" id="folder_name" placeholder="Untitled Folder" required>
-            <button type="submit">Create Folder</button>
-        </form>
-    </div>
-</div>
+<%- include('partials/createFolderModal.ejs') %>
 
-<a href="/drive/file/new">Upload New File</a>
+<!-- <button id="openModalBtn">Add New Folder</button>
+
+<div id="myModal" class="modal">
+  <div class="modal-content">
+    <span class="close-button">&times;</span>
+    <form action="/drive/folder/new" method="post">
+      <label for="folder_name">New Folder Name:</label>
+      <input
+        type="text"
+        name="folder_name"
+        id="folder_name"
+        placeholder="Untitled Folder"
+        required
+      />
+      <button type="submit">Create Folder</button>
+    </form>
+  </div>
+</div> -->
+
+<!-- <button id="openModalBtn">Upload New File</button> -->
+
+<!-- <a href="/drive/file/new">Upload New File</a> -->
+<!-- <div id="myModal" class="modal">
+  <div class="modal-content">
+    <span class="close-button">&times;</span>
+    <form action="/drive/file/new" method="post">
+      <label for="textInput">Test Text Input:</label>
+      <input type="text" name="textInput" id="textInput" /><br />
+
+      <label for="uploaded_file">Upload your file:</label>
+      <input type="file" name="uploaded_file" id="uploaded_file" /><br />
+      <button type="submit">Submit file</button>
+    </form>
+  </div>
+</div> -->
+
 
 <script src="/js/modal.js"></script>
 <%- include('partials/footer.ejs') %>
