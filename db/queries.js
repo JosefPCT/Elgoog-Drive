@@ -18,6 +18,14 @@ module.exports.getMainDriveOfUserById = async (id) => {
   });
 };
 
+module.exports.getFoldersByParentId = async (id) => {
+  return await prisma.folder.findMany({
+    where: {
+      parentId: id,
+    },
+  });
+};
+
 module.exports.findUserByEmail = async (targetEmail) => {
   return await prisma.user.findFirst({
     where: {
@@ -51,4 +59,18 @@ module.exports.createUserAndMainFolder = async (
 
 module.exports.createMainDriveOfUserById = async (id) => {
   await prisma.folder.create({});
+};
+
+module.exports.createSubFolderByParentId = async (
+  folderName,
+  userId,
+  parentId
+) => {
+  await prisma.folder.create({
+    data: {
+      name: folderName,
+      userId: userId,
+      parentId: parentId,
+    },
+  });
 };
