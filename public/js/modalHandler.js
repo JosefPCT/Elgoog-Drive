@@ -1,27 +1,32 @@
 // public/js/modalHandler.js
+// Create Folder Modal Handler
 const createFolderModal = document.getElementById('createFolderModal');
 const closeButton = document.querySelector('.close-button');
 
 
-function openModal() {
+function openCreateFolderModal() {
+  // let node = e.target;
+  // console.log(node);
   createFolderModal.style.display = 'block';
 }
 
-function closeModal() {
+function closeCreateFolderModal() {
   createFolderModal.style.display = 'none';
 }
 
-closeButton.onclick = closeModal;
+closeButton.onclick = closeCreateFolderModal;
 
 // Close the modal if the user clicks outside of it
 window.onclick = function(event) {
   if (event.target == createFolderModal) {
-    closeModal();
+    closeCreateFolderModal();
   }
 };
 
 // Example action handler
 function handleModalAction() {
   alert('Modal action performed!');
-  closeModal();
+  closeCreateFolderModal();
 }
+
+// Create/Upload File Modal Handler
