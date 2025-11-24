@@ -1,15 +1,9 @@
 // public/js/modalHandler.js
 const createFolderModal = document.getElementById('createFolderModal');
 const closeButton = document.querySelector('.close-button');
-// const modalTitle = document.getElementById('modalTitle');
-// const modalBody = document.getElementById('modalBody');
-// const modalActionButton = document.getElementById('modalActionButton');
 
-function openModal(title, bodyContent, actionButtonText, actionCallback) {
-  // modalTitle.textContent = title;
-  // modalBody.textContent = bodyContent;
-  // modalActionButton.textContent = actionButtonText;
-  // modalActionButton.onclick = actionCallback; // Assign the callback for the action button
+
+function openModal() {
   createFolderModal.style.display = 'block';
 }
 
