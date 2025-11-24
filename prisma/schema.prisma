@@ -30,11 +30,13 @@ model User {
 }
 
 model Folder {
-  id         Int      @id @default(autoincrement())
-  name       String   @default("New Folder")
+  id         Int       @id @default(autoincrement())
+  name       String    @default("New Folder")
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime? @updatedAt
   userId     Int
-  user       User     @relation(fields: [userId], references: [id])
+  user       User      @relation(fields: [userId], references: [id])
   parentId   Int?
-  parent     Folder?  @relation("ParentSubFolderRel", fields: [parentId], references: [id])
-  subfolders Folder[] @relation("ParentSubFolderRel")
+  parent     Folder?   @relation("ParentSubFolderRel", fields: [parentId], references: [id])
+  subfolders Folder[]  @relation("ParentSubFolderRel")
 }

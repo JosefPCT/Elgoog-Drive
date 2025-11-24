@@ -16,8 +16,8 @@ module.exports.getMainDriveOfUserById = async (id) => {
       userId: id,
     },
     include: {
-      subfolders: true
-    }
+      subfolders: true,
+    },
   });
 };
 
@@ -39,29 +39,45 @@ module.exports.findUserByEmail = async (targetEmail) => {
 
 // Create Queries
 
-module.exports.createUserAndMainFolder = async (
+module.exports.createUserAndReturn = async (
   email,
   hash,
   first_name,
   last_name
 ) => {
-  await prisma.user.create({
-    data: {
-      email: email,
-      hash: hash,
-      firstName: first_name,
-      lastName: last_name,
-      folders: {
-        create: {
-          name: "My Drive",
-        },
+  let user;
+  try {
+    user = await prisma.user.create({
+      data: {
+        email: email,
+        hash: hash,
+        firstName: first_name,
+        lastName: last_name,
       },
-    },
-  });
+    });
+  } catch (err) {
+    console.error("Error creating user:", error);
+    throw error;
+  } finally {
+    await prisma.$disconnect;
+  }
+  return user;
 };
 
-module.exports.createMainDriveOfUserById = async (id) => {
-  await prisma.folder.create({});
+module.exports.createMainDriveOfUserById = async (userId) => {
+  try {
+    await prisma.folder.create({
+      data: {
+        name: "My Drive",
+        userId: userId,
+      },
+    });
+  } catch (err) {
+    console.error("Error creating main drive of user: ", err);
+    throw error;
+  } finally {
+    await prisma.$disconnect;
+  }
 };
 
 module.exports.createSubFolderByParentId = async (
