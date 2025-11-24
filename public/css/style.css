@@ -2,6 +2,14 @@ body{
   background-color: #f5f5f5;
 }
 
+/* Positioning */
+.flex{
+  display: flex;
+  padding: 15px;
+  gap: 15px;
+}
+
+
 /* Modal */
 .modal {
     display: none; /* Hidden by default */

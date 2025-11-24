@@ -1,18 +1,26 @@
 <%- include('partials/header.ejs') %>
 
-<h1>My Drive</h1>
+<div>
+  <h1>My Drive</h1>
+</div>
 
-<%- include('partials/createFolderModal.ejs') %>
-<%- include('partials/uploadFileModal.ejs') %>
-
-<% if(locals.data) { %>
-  <div>Name</div>
-  <% data.forEach(data => { %>
-    <a href="/drive/folder/<%= data.id %>">
-      <p><%= data.name %></p>
-    </a>
-  <% }); %>
-<% } %>
+<div class="flex">
+  <div>
+    <%- include('partials/createFolderModal.ejs') %>
+    <%- include('partials/uploadFileModal.ejs') %>
+  </div>
+  
+  <div>
+    <% if(locals.data) { %>
+      <div>Name</div>
+      <% data.forEach(data => { %>
+        <a href="/drive/folder/<%= data.id %>">
+          <p><%= data.name %></p>
+        </a>
+      <% }); %>
+    <% } %>
+  </div>
+</div>
 
 <!-- <button id="openModalBtn">Add New Folder</button>
 
