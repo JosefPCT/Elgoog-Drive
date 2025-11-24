@@ -6,5 +6,6 @@ const upload = require("../config/multer");
 
 // Post Route
 module.exports.newFolderPostRoute = async(req, res, next) => {
+  console.log(req.body);
   res.send('New Folder');
 }

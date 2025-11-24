@@ -39,7 +39,8 @@ module.exports.myDriveGetRoute = [
 
 
     res.render('myDrive', {
-        title: 'My Drive'
+        title: 'My Drive',
+        folderId: myDrive.id
     });
   },
 ];

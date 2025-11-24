@@ -2,6 +2,9 @@
   <div class="modal-content">
     <span class="close-button">&times;</span>
     <form action="/drive/folder/new" method="post">
+      <% if(locals.folderId) { %>
+        <input type="hidden" name="parentFolderId" value="<%= folderId %>" />
+      <% } %>
       <label for="folder_name">New Folder Name:</label>
       <input
         type="text"
@@ -16,6 +19,3 @@
 </div>
 
 <button onclick="openModal()">Open Modal</button>
-
-
-
