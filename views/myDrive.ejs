@@ -5,6 +5,15 @@
 <%- include('partials/createFolderModal.ejs') %>
 <%- include('partials/uploadFileModal.ejs') %>
 
+<% if(locals.data) { %>
+  <div>Name</div>
+  <% data.forEach(data => { %>
+    <a href="/drive/folder/<%= data.id %>">
+      <p><%= data.name %></p>
+    </a>
+  <% }); %>
+<% } %>
+
 <!-- <button id="openModalBtn">Add New Folder</button>
 
 <div id="myModal" class="modal">
