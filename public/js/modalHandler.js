@@ -1,7 +1,7 @@
 // public/js/modalHandler.js
 // Create Folder Modal Handler
 const createFolderModal = document.getElementById('createFolderModal');
-const closeButton = document.querySelector('.close-button');
+const createFolderModalCloseButton = document.querySelector('.createFolderModal.close-button');
 
 
 function openCreateFolderModal() {
@@ -14,7 +14,7 @@ function closeCreateFolderModal() {
   createFolderModal.style.display = 'none';
 }
 
-closeButton.onclick = closeCreateFolderModal;
+createFolderModalCloseButton.onclick = closeCreateFolderModal;
 
 // Close the modal if the user clicks outside of it
 window.onclick = function(event) {
@@ -30,3 +30,30 @@ function handleModalAction() {
 }
 
 // Create/Upload File Modal Handler
+const uploadFileModal = document.getElementById('uploadFileModal');
+const uploadFileModalCloseButton = document.querySelector('.uploadFileModal.close-button');
+
+function openUploadFileModal() {
+  // let node = e.target;
+  // console.log(node);
+  uploadFileModal.style.display = 'block';
+}
+
+function closeUploadFileModal() {
+  uploadFileModal.style.display = 'none';
+}
+
+uploadFileModalCloseButton.onclick = closeUploadFileModal;
+
+// Close the modal if the user clicks outside of it
+window.onclick = function(event) {
+  if (event.target == uploadFileModal) {
+    closeUploadFileModal();
+  }
+};
+
+// Example action handler
+function handleModalAction() {
+  alert('Modal action performed!');
+  closeUploadFileModal();
+}

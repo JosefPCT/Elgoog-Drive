@@ -1,0 +1,18 @@
+<div id="uploadFileModal" class="modal" style="display: none">
+  <div class="modal-content">
+    <span class="uploadFileModal close-button">&times;</span>
+    <form action="/drive/file/new" method="post">
+      <% if(locals.folderId) { %>
+        <input type="hidden" name="parentFolderId" value="<%= folderId %>" />
+      <% } %>
+      <label for="textInput">Test Text Input:</label>
+      <input type="text" name="textInput" id="textInput" /><br />
+
+      <label for="uploaded_file">Upload your file:</label>
+      <input type="file" name="uploaded_file" id="uploaded_file" /><br />
+      <button type="submit">Submit file</button>
+    </form>
+  </div>
+</div>
+
+<button onclick="openUploadFileModal()">Upload File</button>

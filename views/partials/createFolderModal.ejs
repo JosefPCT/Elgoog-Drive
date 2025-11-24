@@ -1,6 +1,6 @@
 <div id="createFolderModal" class="modal" style="display: none">
   <div class="modal-content">
-    <span class="close-button">&times;</span>
+    <span class="createFolderModal close-button">&times;</span>
     <form action="/drive/folder/new" method="post">
       <% if(locals.folderId) { %>
         <input type="hidden" name="parentFolderId" value="<%= folderId %>" />
@@ -18,4 +18,4 @@
   </div>
 </div>
 
-<button onclick="openCreateFolderModal()">Open Modal</button>
+<button onclick="openCreateFolderModal()">Create New Folder</button>
