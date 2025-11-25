@@ -69,9 +69,9 @@ module.exports.registerPostRoute = [
     const hashedPass = await genPassword(password);
     const hash = hashedPass.hash;
 
-    const user = await queries.createUserAndReturn(email,hash, first_name,last_name);
-    console.log('Created user id', user.id);
-    await queries.createMainDriveOfUserById(user.id);
+    const user = await queries.createUserAndMainFolderThenReturn(email,hash, first_name,last_name);
+    // console.log('Created user id', user.id);
+    // await queries.createMainDriveOfUserById(user.id);
     res.send("Post route");
   },
 ];

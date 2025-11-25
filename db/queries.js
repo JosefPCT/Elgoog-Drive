@@ -39,7 +39,7 @@ module.exports.findUserByEmail = async (targetEmail) => {
 
 // Create Queries
 
-module.exports.createUserAndReturn = async (
+module.exports.createUserAndMainFolderThenReturn = async (
   email,
   hash,
   first_name,
@@ -53,6 +53,11 @@ module.exports.createUserAndReturn = async (
         hash: hash,
         firstName: first_name,
         lastName: last_name,
+        folders: {
+          create: {
+            name: "My Drive",
+          }
+        }
       },
     });
   } catch (err) {
