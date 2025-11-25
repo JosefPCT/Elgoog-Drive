@@ -1,0 +1,10 @@
+<%- include('partials/header.ejs') %>
+
+<h1>Error Page</h1>
+<%- include('partials/errors.ejs') %>
+
+<% if(locals.previousUrl) { %>
+  <a href="<%= previousUrl %>">Back</a>
+<% } %>
+
+<%- include('partials/footer.ejs') %>
