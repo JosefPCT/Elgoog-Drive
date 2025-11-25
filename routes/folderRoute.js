@@ -7,5 +7,9 @@ const router = Router();
 // Post Route
 router.post('/new', controller.newFolderPostRoute);
 
+// Get Route
+
+router.get('/:folderId', controller.folderIdGetRoute);
+
 module.exports = router;
 

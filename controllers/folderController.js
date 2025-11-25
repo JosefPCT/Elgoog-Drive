@@ -14,3 +14,16 @@ module.exports.newFolderPostRoute = [
     res.redirect('/drive/my-drive');
   },
 ];
+
+// Get Route
+
+module.exports.folderIdGetRoute = [
+  isAuth,
+  async (req, res, next) => {
+    
+    console.log("Folder id...", req.params.folderId);
+    res.render('pages/folder/folderId', {
+      title: 'Folder'
+    });
+  }
+]
