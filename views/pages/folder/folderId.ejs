@@ -2,5 +2,35 @@
 
 <h1>Folder Page</h1>
 
+<div class="flex">
+  <div>
+    <%- include('../../partials/createFolderModal.ejs') %> 
+    <%- include('../../partials/uploadFileModal.ejs') %>
+  </div>
 
+  <div>
+    <div class="flex">
+      <p>Name</p>
+      <p>Owner</p>
+      <p>Date Modified</p>
+      <p>File Size</p>
+    </div>
+    <% if(locals.data) { %>
+      <div>
+        <% data.forEach(data => { %>
+        <a href="/drive/folder/<%= data.id %>">
+          <p><%= data.name %></p>
+        </a>
+        <div>
+        </div>
+        <div>
+          <%= data.updatedAt %>
+        </div>
+        <% }); %>
+      </div>
+    <% } %>
+  </div>
+</div>
+
+<script src="/js/modalHandler.js"></script>
 <%- include('../../partials/footer.ejs') %>

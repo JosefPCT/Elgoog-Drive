@@ -21,13 +21,24 @@ module.exports.getMainDriveOfUserById = async (id) => {
   });
 };
 
-module.exports.getFoldersByParentId = async (id) => {
-  return await prisma.folder.findMany({
+module.exports.getFolderById = async (id) => {
+  return await prisma.folder.findFirst({
     where: {
-      parentId: id,
+      id: id
     },
-  });
-};
+    include: {
+      subfolders: true
+    }
+  })
+}
+
+// module.exports.getFoldersByParentId = async (id) => {
+//   return await prisma.folder.findMany({
+//     where: {
+//       parentId: id,
+//     },
+//   });
+// };
 
 module.exports.findUserByEmail = async (targetEmail) => {
   return await prisma.user.findFirst({

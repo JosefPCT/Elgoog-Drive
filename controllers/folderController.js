@@ -10,8 +10,12 @@ module.exports.newFolderPostRoute = [
   async (req, res, next) => {
     console.log(req.body);
     console.log(req.user);
-    await queries.createSubFolderByParentId(req.body.folder_name, req.user.id, parseInt(req.body.parentFolderId));
-    res.redirect('/drive/my-drive');
+    await queries.createSubFolderByParentId(
+      req.body.folder_name,
+      req.user.id,
+      parseInt(req.body.parentFolderId)
+    );
+    res.redirect("/drive/my-drive");
   },
 ];
 
@@ -20,10 +24,15 @@ module.exports.newFolderPostRoute = [
 module.exports.folderIdGetRoute = [
   isAuth,
   async (req, res, next) => {
-    
     console.log("Folder id...", req.params.folderId);
-    res.render('pages/folder/folderId', {
-      title: 'Folder'
+
+    const folder = await queries.getFolderById(parseInt(req.params.folderId));
+    console.log(folder);
+
+    res.render("pages/folder/folderId", {
+      title: "Folder",
+      folderId: folder.id,
+      data: folder.subfolders
     });
-  }
-]
+  },
+];
