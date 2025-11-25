@@ -20,13 +20,15 @@
     <% if(locals.data) { %>
       <div>
         <% data.forEach(data => { %>
-        <a href="/drive/folder/<%= data.id %>">
-          <p><%= data.name %></p>
-        </a>
-        <div>
-        </div>
-        <div>
-          <%= data.updatedAt %>
+        <div class="flex">
+          <a href="/drive/folder/<%= data.id %>">
+            <p><%= data.name %></p>
+          </a>
+          <div>
+          </div>
+          <div>
+            <%= data.updatedAt %>
+          </div>
         </div>
         <% }); %>
       </div>
@@ -56,7 +58,7 @@
 <!-- <button id="openModalBtn">Upload New File</button> -->
 
 <!-- <a href="/drive/file/new">Upload New File</a> -->
-<div id="myModal" class="modal">
+<!-- <div id="myModal" class="modal">
   <div class="modal-content">
     <span class="close-button">&times;</span>
     <form action="/drive/file/new" method="post">
@@ -68,7 +70,7 @@
       <button type="submit">Submit file</button>
     </form>
   </div>
-</div>
+</div> -->
 
 <script src="/js/modalHandler.js"></script>
 <%- include('partials/footer.ejs') %>
