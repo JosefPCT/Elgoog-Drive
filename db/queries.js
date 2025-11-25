@@ -7,6 +7,9 @@ module.exports.getCurrentUserById = async (targetId) => {
     where: {
       id: targetId,
     },
+    include: {
+      folders: true
+    }
   });
 };
 
