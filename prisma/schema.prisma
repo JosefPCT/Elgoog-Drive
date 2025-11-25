@@ -37,6 +37,6 @@ model Folder {
   userId     Int
   user       User      @relation(fields: [userId], references: [id])
   parentId   Int?
-  parent     Folder?   @relation("ParentSubFolderRel", fields: [parentId], references: [id])
+  parent     Folder?   @relation("ParentSubFolderRel", fields: [parentId], references: [id], onDelete: Cascade)
   subfolders Folder[]  @relation("ParentSubFolderRel")
 }
