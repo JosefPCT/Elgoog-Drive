@@ -15,7 +15,7 @@ module.exports.newFolderPostRoute = [
       req.user.id,
       parseInt(req.body.parentFolderId)
     );
-    res.redirect("/drive/my-drive");
+    res.redirect(req.body.previous_url);
   },
 ];
 
@@ -29,10 +29,13 @@ module.exports.folderIdGetRoute = [
     const folder = await queries.getFolderById(parseInt(req.params.folderId));
     console.log(folder);
 
+    console.log('Displaying Current url', req.originalUrl);
+
     res.render("pages/folder/folderId", {
       title: "Folder",
       folderId: folder.id,
-      data: folder.subfolders
+      data: folder.subfolders,
+      previousUrl: req.originalUrl
     });
   },
 ];
