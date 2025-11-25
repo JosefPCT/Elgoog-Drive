@@ -40,6 +40,19 @@ module.exports.newFolderPostRoute = [
   },
 ];
 
+module.exports.deleteFolderIdPostRoute = [
+  isAuth,
+  async (req, res, next) => {
+    const folderId = req.params.folderId
+    console.log("Folder Id", folderId);
+    console.log(req.body);
+    if(req.body._method === "DELETE"){
+      await queries.deleteFolderById(parseInt(folderId));
+    }
+    res.redirect(req.body.previousUrl);
+  }
+]
+
 // Get Route
 
 module.exports.folderIdGetRoute = [

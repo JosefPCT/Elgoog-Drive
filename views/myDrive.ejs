@@ -30,6 +30,17 @@
           <div>
             <%= data.updatedAt %>
           </div>
+          <div class="flex">
+            <button>Edit</button>
+            <div>
+              <form action="/drive/folder/<%= data.id %>/delete" method="post">
+                <input type="hidden" name="previousUrl" value="<%= previousUrl %>" />
+                <input type="hidden" name="target_folderId" value="<%= data.id %>" >
+                <input type="hidden" name="_method" value="DELETE">
+                <button type="submit">Delete</button>
+              </form>
+            </div>
+          </div>
         </div>
         <% }); %>
       </div>

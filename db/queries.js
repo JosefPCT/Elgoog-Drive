@@ -8,8 +8,8 @@ module.exports.getCurrentUserById = async (targetId) => {
       id: targetId,
     },
     include: {
-      folders: true
-    }
+      folders: true,
+    },
   });
 };
 
@@ -27,13 +27,13 @@ module.exports.getMainDriveOfUserById = async (id) => {
 module.exports.getFolderById = async (id) => {
   return await prisma.folder.findFirst({
     where: {
-      id: id
+      id: id,
     },
     include: {
-      subfolders: true
-    }
-  })
-}
+      subfolders: true,
+    },
+  });
+};
 
 // module.exports.getFoldersByParentId = async (id) => {
 //   return await prisma.folder.findMany({
@@ -70,8 +70,8 @@ module.exports.createUserAndMainFolderThenReturn = async (
         folders: {
           create: {
             name: "My Drive",
-          }
-        }
+          },
+        },
       },
     });
   } catch (err) {
@@ -111,4 +111,21 @@ module.exports.createSubFolderByParentId = async (
       parentId: parentId,
     },
   });
+};
+
+// DELETE Queries
+
+module.exports.deleteFolderById = async (targetId) => {
+  try {
+    await prisma.folder.delete({
+      where: {
+        id: targetId,
+      },
+    });
+  } catch (err) {
+    console.error("Error deleting folder: ", err);
+    throw err;
+  } finally {
+    await prisma.$disconnect;
+  }
 };
