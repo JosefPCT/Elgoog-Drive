@@ -33,7 +33,7 @@
             <p><%= user.firstName %> <%= user.lastName %></p>
           </div>
           <div>
-            <%= data.updatedAt %>
+            <%= data.updatedAt.toISOString().substring(0, 10) %>
           </div>
           <div class="flex">
             <button>Edit</button>
