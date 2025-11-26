@@ -47,7 +47,8 @@ module.exports.myDriveGetRoute = [
         folderId: myDrive.id,
         user: currentUser,
         data: myDrive.subfolders,
-        previousUrl: req.originalUrl
+        currentUrl: req.originalUrl,
+        savedUrl: req.originalUrl
     });
   },
 ];

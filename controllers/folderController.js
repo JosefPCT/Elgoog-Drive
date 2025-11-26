@@ -23,7 +23,7 @@ module.exports.newFolderPostRoute = [
       return res.status(400).render("404", {
         title: "404",
         errors: errors.array(),
-        previousUrl: req.body.previous_url
+        savedUrl: req.body.previous_url
       });
     }
 
@@ -61,7 +61,22 @@ module.exports.folderIdGetRoute = [
     console.log("Folder id...", req.params.folderId);
 
     const folder = await queries.getFolderById(parseInt(req.params.folderId));
-    console.log(folder);
+    // console.log(folder);
+
+    // Creating the nav object
+    let flag = true;
+    let nav = [];
+    let targetFolderId = req.params.folderId;
+    while(flag){
+      let currFolder = await queries.getFolderById(parseInt(targetFolderId));
+      console.log(currFolder);
+      nav.unshift({id: currFolder.id, name: currFolder.name});
+      targetFolderId = currFolder.parentId;
+      if(currFolder.parentId === null) {
+        flag = false;
+      } 
+    }
+    console.log(`Showing nav:`, nav);
 
     console.log("Displaying Current url", req.originalUrl);
 
@@ -69,7 +84,8 @@ module.exports.folderIdGetRoute = [
       title: "Folder",
       folderId: folder.id,
       data: folder.subfolders,
-      previousUrl: req.originalUrl,
+      nav: nav,
+      savedUrl: req.originalUrl,
     });
   },
 ];

@@ -9,6 +9,21 @@
   </div>
 
   <div>
+    <% if(locals.nav) { %>
+      <h2>
+        <% nav.forEach((element, ind) => { %>
+          <% if(element.name === 'My Drive') { %> 
+            <a href="/drive/my-drive"><%= element.name %></a> 
+            >
+          <% } else { %>
+            <a href="/drive/folder/<%= element.id %>"><%= element.name %></a>
+            <% if(nav.length - 1 !== ind) { %>
+              <span>></span>
+            <% } %>
+          <% } %>
+        <% }); %>
+      </h2>
+    <% } %>
     <div class="flex">
       <p>Name</p>
       <p>Owner</p>
