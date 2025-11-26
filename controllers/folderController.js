@@ -6,9 +6,24 @@ const upload = require("../config/multer");
 
 // Validation
 const emptyErr = `must not be empty`;
+const subfolderNameExistsErr = 'Subfolder name exists already';
+
+// Custom validator
+
+const subfolderNameExists = async(value, { req }) => {
+  console.log("Validating subfolder name....");
+  console.log(value);
+  console.log(req.body);
+  let data = await queries.getFolderByNameInsideAFolder(parseInt(req.body.parentFolderId), value);
+  console.log('Folder exists...?', data);
+  if(data){
+    throw new Error(`${value} ${subfolderNameExistsErr}`)
+  }
+  return true;
+}
 
 validateFolder = [
-  body("folder_name").trim().notEmpty().withMessage(`Folder name ${emptyErr}`),
+  body("folder_name").trim().notEmpty().withMessage(`Folder name ${emptyErr}`).custom(subfolderNameExists),
   body("parentFolderId").trim().notEmpty().withMessage(`Parent folder id ${emptyErr}`),
   body("previous_url").trim().notEmpty().withMessage(`Previous Url ${emptyErr}`)
 ];
@@ -29,8 +44,8 @@ module.exports.newFolderPostRoute = [
 
     const { folder_name , parentFolderId , previous_url } = matchedData(req);
 
-    console.log(req.body);
-    console.log(req.user);
+    // console.log(req.body);
+    // console.log(req.user);
     await queries.createSubFolderByParentId(
       folder_name,
       req.user.id,
@@ -58,7 +73,7 @@ module.exports.deleteFolderIdPostRoute = [
 module.exports.folderIdGetRoute = [
   isAuth,
   async (req, res, next) => {
-    console.log("Folder id...", req.params.folderId);
+    // console.log("Folder id...", req.params.folderId);
 
     const folder = await queries.getFolderById(parseInt(req.params.folderId));
     // console.log(folder);
@@ -76,9 +91,9 @@ module.exports.folderIdGetRoute = [
         flag = false;
       } 
     }
-    console.log(`Showing nav:`, nav);
+    // console.log(`Showing nav:`, nav);
 
-    console.log("Displaying Current url", req.originalUrl);
+    // console.log("Displaying Current url", req.originalUrl);
 
     res.render("pages/folder/folderId", {
       title: "Folder",

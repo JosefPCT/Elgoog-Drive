@@ -32,7 +32,7 @@ module.exports.myDriveGetRoute = [
   isAuth,
   async (req, res, next) => {
     const currentUser = await queries.getCurrentUserById(req.user.id);
-    console.log("Current data of user:", currentUser);
+    // console.log("Current data of user:", currentUser);
 
     const myDrive = await queries.getMainDriveOfUserById(currentUser.id);
     // console.log('Drive', myDrive);
@@ -40,7 +40,7 @@ module.exports.myDriveGetRoute = [
     // const data = await queries.getFoldersByParentId(myDrive.id)
     // console.log('Folders', data);
 
-    console.log('Displaying Current url', req.originalUrl);
+    // console.log('Displaying Current url', req.originalUrl);
 
     res.render('myDrive', {
         title: 'My Drive',

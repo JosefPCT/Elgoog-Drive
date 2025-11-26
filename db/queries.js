@@ -35,6 +35,17 @@ module.exports.getFolderById = async (id) => {
   });
 };
 
+module.exports.getFolderByNameInsideAFolder = async(folderId, name) => {
+  return await prisma.folder.findFirst({
+    where: {
+      AND: [
+        { parentId: folderId },
+        { name: name }
+      ]
+    }
+  })
+}
+
 // module.exports.getFoldersByParentId = async (id) => {
 //   return await prisma.folder.findMany({
 //     where: {
