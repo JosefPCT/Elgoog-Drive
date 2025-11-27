@@ -124,6 +124,19 @@ module.exports.createSubFolderByParentId = async (
   });
 };
 
+// EDIT Queries
+
+module.exports.editNameOfFolderById = async(targetFolderId, newName) => {
+  await prisma.folder.update({
+    where: {
+      id: targetFolderId
+    },
+    data: {
+      name: newName
+    }
+  })
+}
+
 // DELETE Queries
 
 module.exports.deleteFolderById = async (targetId) => {

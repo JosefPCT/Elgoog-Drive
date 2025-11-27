@@ -22,11 +22,39 @@ const subfolderNameExists = async(value, { req }) => {
   return true;
 }
 
+const notSameAndValidSubfolderName = async(value,  { req }) => {
+  let previousFolderData = await queries.getFolderById(parseInt(req.body.folder_id));
+  if(value !== previousFolderData.name){
+    const data = await queries.getFolderByNameInsideAFolder(parseInt(req.body.parent_folder_id), value);
+    if(data){
+      throw new Error(`${value} ${subfolderNameExistsErr}`);
+    } 
+  } 
+  return true;
+}
+
 validateFolder = [
   body("folder_name").trim().notEmpty().withMessage(`Folder name ${emptyErr}`).custom(subfolderNameExists),
   body("parentFolderId").trim().notEmpty().withMessage(`Parent folder id ${emptyErr}`),
   body("previous_url").trim().notEmpty().withMessage(`Previous Url ${emptyErr}`)
 ];
+
+validateEditFolder = [
+  body("folder_name")
+    .trim()
+    .notEmpty().withMessage(`Folder name ${emptyErr}`)
+   .custom(notSameAndValidSubfolderName),
+  body("parent_folder_id")
+    .trim()
+    .notEmpty().withMessage(`Parent Folder Id ${emptyErr}`),
+  body("folder_id")
+    .trim()
+    .notEmpty().withMessage(`Folder Id ${emptyErr}`),
+  body("previous_url")
+    .trim()
+    .notEmpty().withMessage(`Previous Url ${emptyErr}`)
+  
+]
 
 // Post Route
 module.exports.newFolderPostRoute = [
@@ -54,6 +82,29 @@ module.exports.newFolderPostRoute = [
     res.redirect(previous_url);
   },
 ];
+
+module.exports.editFolderIdPostRoute = [
+  isAuth,
+  validateEditFolder,
+  async(req, res, next) => {
+    console.log('Edit post route');
+    console.log(req.body);
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).render("404", {
+        title: "404",
+        errors: errors.array(),
+        savedUrl: req.body.previous_url
+      })
+    }
+
+    const { folder_name , parent_folder_id , folder_id, previous_url } = matchedData(req);
+
+    await queries.editNameOfFolderById(parseInt(folder_id), folder_name)
+    res.redirect(previous_url);
+    
+  }
+]
 
 module.exports.deleteFolderIdPostRoute = [
   isAuth,

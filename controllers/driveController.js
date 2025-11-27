@@ -40,7 +40,15 @@ module.exports.myDriveGetRoute = [
     // const data = await queries.getFoldersByParentId(myDrive.id)
     // console.log('Folders', data);
 
-    // console.log('Displaying Current url', req.originalUrl);
+    console.log('Displaying Current url', req.originalUrl);
+    console.log("Display path test", req.baseUrl + req.url);
+
+    const urlWithoutQuery = req.baseUrl + req.path;
+    const isEditing = req.query.mode === 'edit';
+    console.log(`Is Editing? ${isEditing}`);
+
+    console.log(req.query);
+    console.log(urlWithoutQuery);
 
     res.render('myDrive', {
         title: 'My Drive',
@@ -48,7 +56,11 @@ module.exports.myDriveGetRoute = [
         user: currentUser,
         data: myDrive.subfolders,
         currentUrl: req.originalUrl,
-        savedUrl: req.originalUrl
+        urlWithoutQuery, urlWithoutQuery,
+        savedUrl: urlWithoutQuery,
+        isEditing: isEditing,
+        targetId: parseInt(req.query.targetId)
+        
     });
   },
 ];

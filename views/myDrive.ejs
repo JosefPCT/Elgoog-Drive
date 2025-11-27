@@ -25,28 +25,41 @@
     <% if(locals.data) { %>
       <div>
         <% data.forEach(data => { %>
-        <div class="flex">
-          <a href="/drive/folder/<%= data.id %>">
-            <p><%= data.name %></p>
-          </a>
-          <div>
-            <p><%= user.firstName %> <%= user.lastName %></p>
-          </div>
-          <div>
-            <%= data.updatedAt.toISOString().substring(0, 10) %>
-          </div>
+        <% if(isEditing && targetId === data.id) { %>
           <div class="flex">
-            <button>Edit</button>
+            <form action="/drive/folder/<%= data.id %>/edit" method="post">
+              <input type="hidden" name="previous_url" value="<%= savedUrl %>">
+              <input type="hidden" name="parent_folder_id" value="<%= data.parentId %>">
+              <input type="hidden" name="folder_id" value="<%= data.id %>">
+              <input type="text" name="folder_name" id="folder_name" value="<%= data.name %>">
+              <button type="submit">Save Changes</button>
+              <a href="<%= urlWithoutQuery %>">Cancel Edit</a>
+            </form>
+          </div>
+        <% } else { %> 
+          <div class="flex">
+            <a href="/drive/folder/<%= data.id %>">
+              <p><%= data.name %></p>
+            </a>
             <div>
-              <form action="/drive/folder/<%= data.id %>/delete" method="post">
-                <input type="hidden" name="previousUrl" value="<%= currentUrl %>" />
-                <input type="hidden" name="target_folderId" value="<%= data.id %>" >
-                <input type="hidden" name="_method" value="DELETE">
-                <button type="submit">Delete</button>
-              </form>
+              <p><%= user.firstName %> <%= user.lastName %></p>
+            </div>
+            <div>
+              <%= data.updatedAt.toISOString().substring(0, 10) %>
+            </div>
+            <div class="flex">
+              <a href="/drive/my-drive?mode=edit&targetId=<%= data.id %>"><button>Edit</button></a>
+              <div>
+                <form action="/drive/folder/<%= data.id %>/delete" method="post">
+                  <input type="hidden" name="previousUrl" value="<%= currentUrl %>" />
+                  <input type="hidden" name="target_folderId" value="<%= data.id %>" >
+                  <input type="hidden" name="_method" value="DELETE">
+                  <button type="submit">Delete</button>
+                </form>
+              </div>
             </div>
           </div>
-        </div>
+        <% } %>
         <% }); %>
       </div>
     <% } %>
