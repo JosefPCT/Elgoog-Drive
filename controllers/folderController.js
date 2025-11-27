@@ -124,11 +124,8 @@ module.exports.deleteFolderIdPostRoute = [
 module.exports.folderIdGetRoute = [
   isAuth,
   async (req, res, next) => {
-    // console.log("Folder id...", req.params.folderId);
-
     const folder = await queries.getFolderById(parseInt(req.params.folderId));
-    // console.log(folder);
-
+    
     // Creating the nav object
     let flag = true;
     let nav = [];
@@ -142,11 +139,14 @@ module.exports.folderIdGetRoute = [
         flag = false;
       } 
     }
-    // console.log(`Showing nav:`, nav);
-
-    // console.log("Displaying Current url", req.originalUrl);
+    
     const urlWithoutQuery = req.baseUrl + req.path;
     const isEditing = req.query.mode === 'edit';
+
+    // console.log("Folder id...", req.params.folderId);
+    // console.log(folder);
+    // console.log(`Showing nav:`, nav);
+    // console.log("Displaying Current url", req.originalUrl);
 
     res.render("pages/folder/folderId", {
       title: "Folder",

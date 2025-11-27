@@ -32,23 +32,19 @@ module.exports.myDriveGetRoute = [
   isAuth,
   async (req, res, next) => {
     const currentUser = await queries.getCurrentUserById(req.user.id);
-    // console.log("Current data of user:", currentUser);
-
     const myDrive = await queries.getMainDriveOfUserById(currentUser.id);
-    // console.log('Drive', myDrive);
-
-    // const data = await queries.getFoldersByParentId(myDrive.id)
-    // console.log('Folders', data);
-
-    console.log('Displaying Current url', req.originalUrl);
-    console.log("Display path test", req.baseUrl + req.url);
-
     const urlWithoutQuery = req.baseUrl + req.path;
     const isEditing = req.query.mode === 'edit';
-    console.log(`Is Editing? ${isEditing}`);
-
-    console.log(req.query);
-    console.log(urlWithoutQuery);
+   
+    // console.log("Current data of user:", currentUser);
+    // console.log('Drive', myDrive);
+    // const data = await queries.getFoldersByParentId(myDrive.id)
+    // console.log('Folders', data);
+    // console.log(`Is Editing? ${isEditing}`);
+    // console.log(req.query);
+    // console.log(urlWithoutQuery);
+    // console.log('Displaying Current url', req.originalUrl);
+    // console.log("Display path test", req.baseUrl + req.url);
 
     res.render('myDrive', {
         title: 'My Drive',
@@ -56,8 +52,7 @@ module.exports.myDriveGetRoute = [
         user: currentUser,
         data: myDrive.subfolders,
         currentUrl: req.originalUrl,
-        urlWithoutQuery, urlWithoutQuery,
-        savedUrl: urlWithoutQuery,
+        urlWithoutQuery: urlWithoutQuery,
         isEditing: isEditing,
         targetId: parseInt(req.query.targetId)
         

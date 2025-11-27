@@ -28,7 +28,7 @@
         <% if(isEditing && targetId === data.id) { %>
           <div class="flex">
             <form action="/drive/folder/<%= data.id %>/edit" method="post">
-              <input type="hidden" name="previous_url" value="<%= savedUrl %>">
+              <input type="hidden" name="previous_url" value="<%= urlWithoutQuery %>">
               <input type="hidden" name="parent_folder_id" value="<%= data.parentId %>">
               <input type="hidden" name="folder_id" value="<%= data.id %>">
               <input type="text" name="folder_name" id="folder_name" value="<%= data.name %>">
@@ -51,7 +51,7 @@
               <a href="/drive/my-drive?mode=edit&targetId=<%= data.id %>"><button>Edit</button></a>
               <div>
                 <form action="/drive/folder/<%= data.id %>/delete" method="post">
-                  <input type="hidden" name="previousUrl" value="<%= currentUrl %>" />
+                  <input type="hidden" name="previousUrl" value="<%= urlWithoutQuery %>" />
                   <input type="hidden" name="target_folderId" value="<%= data.id %>" >
                   <input type="hidden" name="_method" value="DELETE">
                   <button type="submit">Delete</button>
