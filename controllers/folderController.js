@@ -145,6 +145,8 @@ module.exports.folderIdGetRoute = [
     // console.log(`Showing nav:`, nav);
 
     // console.log("Displaying Current url", req.originalUrl);
+    const urlWithoutQuery = req.baseUrl + req.path;
+    const isEditing = req.query.mode === 'edit';
 
     res.render("pages/folder/folderId", {
       title: "Folder",
@@ -152,6 +154,9 @@ module.exports.folderIdGetRoute = [
       data: folder.subfolders,
       nav: nav,
       savedUrl: req.originalUrl,
+      urlWithoutQuery, urlWithoutQuery,
+      isEditing: isEditing,
+      targetId: parseInt(req.query.targetId)
     });
   },
 ];
