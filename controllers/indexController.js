@@ -106,9 +106,16 @@ module.exports.indexGetRoute = async (req, res, next) => {
 
   //   console.log(user.hash);
 
-  res.render("index", {
-    title: "Home",
-  });
+  console.log(`Home User:`, req.user);
+
+  if(req.user){
+    res.redirect('/drive/my-drive');
+  } else {
+    res.redirect('/login');
+  }
+  // res.render("index", {
+  //   title: "Home",
+  // });
 };
 
 module.exports.registerGetRoute = (req, res, next) => {
