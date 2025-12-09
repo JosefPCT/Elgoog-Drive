@@ -4,7 +4,7 @@
     <form action="/drive/folder/new" method="post">
       <% if(locals.folderId) { %>
         <input type="hidden" name="parentFolderId" value="<%= folderId %>" />
-        <input type="hidden" name="previous_url" value="<%= savedUrl %>">
+        <input type="hidden" name="previous_url" value="<%= urlWithoutQuery %>">
       <% } %>
       <label for="folder_name">New Folder Name:</label>
       <input
