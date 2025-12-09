@@ -47,3 +47,31 @@ body{
     text-decoration: none;
     cursor: pointer;
 }
+
+.simple-shadow{
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+/* Login Form */
+
+.parent-center-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.login-form{
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  height: 300px;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+}
+
+.login-form > form{
+  display: flex;
+  flex-direction: column;
+}
