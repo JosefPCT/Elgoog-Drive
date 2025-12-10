@@ -135,7 +135,7 @@ module.exports.loginSuccessGetRoute = (req, res, next) => {
   console.log(req.user);
   // res.send("Login successs");
   // res.redirect('/protected-route');
-  res.redirect('/drive');
+  res.redirect('/drive/my-drive');
 }
 
 module.exports.loginFailureGetRoute = (req, res, next) => {
