@@ -86,6 +86,13 @@ body{
   padding: 8px;
 }
 
+.data-container{
+  /* background-color: red; */
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 9px;
+}
+
 .overflow{
   height: 400px;
   overflow: auto;
