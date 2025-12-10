@@ -7,3 +7,15 @@
     <title><%= title %></title>
 </head>
 <body>
+<header>
+    <div class="flex nav-pos">
+        <h4><a href="/">Elgoog Drive</a></h4>
+        <div>
+            <% if(locals.user) { %> 
+                <a href="/logout">Logout</a>
+            <% } else { %>
+                <a href="/login">Login</a>
+            <%  } %>
+        </div>
+    </div>
+</header>

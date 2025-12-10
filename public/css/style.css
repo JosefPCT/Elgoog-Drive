@@ -9,6 +9,10 @@ body{
   gap: 15px;
 }
 
+.nav-pos{
+  justify-content: space-between;
+}
+
 
 /* Modal */
 .modal {
@@ -80,4 +84,13 @@ body{
 
 .simple-form > form > button{
   padding: 8px;
+}
+
+.overflow{
+  height: 400px;
+  overflow: auto;
+}
+
+header{
+  /* background-color: red; */
 }
