@@ -61,7 +61,7 @@ body{
   height: 100vh;
 }
 
-.login-form{
+.simple-form{
   display: flex;
   flex-direction: column;
   width: 300px;
@@ -72,12 +72,12 @@ body{
   
 }
 
-.login-form > form{
+.simple-form > form{
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-.login-form > form > button{
+.simple-form > form > button{
   padding: 8px;
 }
