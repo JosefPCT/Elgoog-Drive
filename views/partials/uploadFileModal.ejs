@@ -1,7 +1,7 @@
 <div id="uploadFileModal" class="modal" style="display: none">
   <div class="modal-content">
     <span class="uploadFileModal close-button">&times;</span>
-    <form action="/drive/file/new" method="post">
+    <form action="/drive/file/new" method="post" enctype="multipart/form-data">
       <% if(locals.folderId) { %>
         <input type="hidden" name="parentFolderId" value="<%= folderId %>" />
       <% } %>
