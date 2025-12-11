@@ -2,9 +2,12 @@ const multer = require("multer");
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5mb
 
+const storage = multer.memoryStorage();
+
 const upload = multer({
-  dest: "uploads/",
+  // dest: "uploads/",
   // fileFilter: fileFilter,
+  storage: storage,
   limits: {
     fileSize: MAX_FILE_SIZE,
   },
