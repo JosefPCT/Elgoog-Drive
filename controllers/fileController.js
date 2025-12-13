@@ -37,11 +37,42 @@ module.exports.fileNewPostRoute = [
       // const { data } = supabase.storage.from('testbuck1').getPublicUrl('testfold/sunsetsmall.png');
       // console.log(data);
 
-      const { data, error } = await supabase.storage.getBucket('testbuck1');
+      // Get bucket needs policies in RLS policies?
+      // const { data, error } = await supabase.storage.getBucket('testbuck1');
       // const { data, error } = await supabase.storage.listBuckets();
-      console.log(data);
-      console.log(error);
 
+      // Tried using a bucket with no set policies, only public
+      // const { data, error } = await supabase.storage.from('bucknopol').getPublicUrl('testy/flexboxcheatsheet.png');
+
+      // Uploading
+      // const { data, error } = await supabase.storage.from('testbuck1').upload('testfold/testing1.png', req.file.buffer, {
+      //   cacheControl: '3600',
+      //   upsert: false,
+      //   // contentType: 'image/png',
+      //   contentType: req.file.mimetype
+      // });
+      // console.log(error);
+      // console.log(data);
+      
+
+      // Retrieve / GET
+      // const { data, error } = await supabase.storage.from('testbuck1').getPublicUrl('testfold/testing1.png');
+      // console.log(error);
+      // console.log(data);
+
+      // Listing files 
+      // console.log(data);
+      // console.log(error);
+
+      // Check if file exists
+      // const { data, error } = await supabase.storage.from('testbuck1').exists('testfold/testing1.png');
+      // console.log(error);
+      // console.log(data);
+
+      // Delete
+      // const { data, error } = await supabase.storage.from('testbuck1').remove(['testfold/test.png']);
+      // console.log(error);
+      // console.log(data);
 
     // res.send("aa");
   },
