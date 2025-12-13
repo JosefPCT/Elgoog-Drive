@@ -3,6 +3,7 @@
     "@prisma/adapter-pg": "^7.0.0",
     "@prisma/client": "^7.0.0",
     "@quixo3/prisma-session-store": "^3.1.13",
+    "@supabase/supabase-js": "^2.87.1",
     "bcryptjs": "^3.0.3",
     "cloudinary": "^2.8.0",
     "dotenv": "^17.2.3",
