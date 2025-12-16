@@ -19,6 +19,26 @@ module.exports.fileNewPostRoute = [
       return res.status(400).json({ error: 'No file uploaded' });
     }
 
+    const filePath = 'testfold/testfile';
+
+    const { data, error } = await supabase.storage.from('testbuck1').upload(filePath, req.file.buffer, {
+        cacheControl: '3600',
+        upsert: false,
+        // contentType: 'image/png',
+        contentType: req.file.mimetype
+    });
+    if(error){
+      console.log("Error on uploading to supabase", error);
+    } else {
+      const { data, error } = await supabase.storage.from('testbuck1').getPublicUrl(filePath);
+      if(error){
+        console.log("Error on retrieving public url", error)
+      } else {
+        console.log("Showing public url");
+        await queries.createFileData(parseInt(req.body.parentFolderId), req.body.textInput, req.file.size.toString() , data.publicUrl);
+      }
+    }
+    
     // Cloudinary stuff
 
     // cloudinary.uploader.upload_stream({ resource_type: 'auto'}, (error, result) => {

@@ -35,16 +35,13 @@ module.exports.getFolderById = async (id) => {
   });
 };
 
-module.exports.getFolderByNameInsideAFolder = async(folderId, name) => {
+module.exports.getFolderByNameInsideAFolder = async (folderId, name) => {
   return await prisma.folder.findFirst({
     where: {
-      AND: [
-        { parentId: folderId },
-        { name: name }
-      ]
-    }
-  })
-}
+      AND: [{ parentId: folderId }, { name: name }],
+    },
+  });
+};
 
 // module.exports.getFoldersByParentId = async (id) => {
 //   return await prisma.folder.findMany({
@@ -124,18 +121,29 @@ module.exports.createSubFolderByParentId = async (
   });
 };
 
+module.exports.createFileData = async (parentFolderId, name, size, url) => {
+  await prisma.file.create({
+    data: {
+      folderId: parentFolderId,
+      name: name,
+      size: size,
+      url: url,
+    },
+  });
+};
+
 // EDIT Queries
 
-module.exports.editNameOfFolderById = async(targetFolderId, newName) => {
+module.exports.editNameOfFolderById = async (targetFolderId, newName) => {
   await prisma.folder.update({
     where: {
-      id: targetFolderId
+      id: targetFolderId,
     },
     data: {
-      name: newName
-    }
-  })
-}
+      name: newName,
+    },
+  });
+};
 
 // DELETE Queries
 
