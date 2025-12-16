@@ -45,7 +45,7 @@ model Folder {
 model File {
   id         Int       @id @default(autoincrement())
   name       String    @default("New File")
-  size       String
+  size       Int
   url        String
   uploadedAt DateTime  @default(now()) @db.Timestamptz(6)
   updatedAt  DateTime? @updatedAt @db.Timestamptz(6)

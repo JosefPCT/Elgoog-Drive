@@ -19,6 +19,7 @@ module.exports.fileNewPostRoute = [
       return res.status(400).json({ error: 'No file uploaded' });
     }
 
+    // Test Uploading To Supabase And Saving to DB
     const filePath = 'testfold/testfile';
 
     const { data, error } = await supabase.storage.from('testbuck1').upload(filePath, req.file.buffer, {
@@ -35,7 +36,7 @@ module.exports.fileNewPostRoute = [
         console.log("Error on retrieving public url", error)
       } else {
         console.log("Showing public url");
-        await queries.createFileData(parseInt(req.body.parentFolderId), req.body.textInput, req.file.size.toString() , data.publicUrl);
+        await queries.createFileData(parseInt(req.body.parentFolderId), req.body.textInput, req.file.size , data.publicUrl);
       }
     }
     
