@@ -61,6 +61,14 @@
         <% }); %>
       </div>
     <% } %>
+    <% files.forEach(file => { %>
+      <div>
+        <p>Name: <%= file.name %></p>
+        <p>Size: <%= file.size %></p>
+        <p>URL: <%= file.url %></p>
+        <img src="<%= file.url%>" alt="Image">
+      </div>
+    <% }); %>
   </div>
 </div>
 

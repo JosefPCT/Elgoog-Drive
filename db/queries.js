@@ -20,6 +20,7 @@ module.exports.getMainDriveOfUserById = async (id) => {
     },
     include: {
       subfolders: true,
+      files: true
     },
   });
 };

@@ -48,11 +48,14 @@ module.exports.myDriveGetRoute = [
     // console.log('Displaying Current url', req.originalUrl);
     // console.log("Display path test", req.baseUrl + req.url);
 
+    console.dir(myDrive);
+
     res.render('myDrive', {
         title: 'My Drive',
         folderId: myDrive.id,
         user: currentUser,
         data: myDrive.subfolders,
+        files: myDrive.files,
         currentUrl: req.originalUrl,
         urlWithoutQuery: urlWithoutQuery,
         isEditing: isEditing,
