@@ -45,6 +45,13 @@
             <div>
               <%= data.updatedAt.toISOString().substring(0, 10) %>
             </div>
+            <div>
+              <% if(data.size) { %>
+                <%= data.size %>kbs
+              <% }  else { %>
+                --
+              <% } %>
+            </div>
             <div class="flex">
               <a href="/drive/my-drive?mode=edit&targetId=<%= data.id %>"><button>Edit</button></a>
               <div>

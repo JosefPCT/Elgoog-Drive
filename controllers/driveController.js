@@ -51,11 +51,15 @@ module.exports.myDriveGetRoute = [
     console.log("Showing Data:");
     console.dir(myDrive);
 
+    console.log("Showing combined table");
+    let data = [...myDrive.subfolders, ...myDrive.files];
+    // console.dir(data);
+
     res.render('myDrive', {
         title: 'My Drive',
         folderId: myDrive.id,
         user: currentUser,
-        data: myDrive.subfolders,
+        data: data,
         files: myDrive.files,
         currentUrl: req.originalUrl,
         urlWithoutQuery: urlWithoutQuery,
