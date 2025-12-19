@@ -13,15 +13,29 @@ module.exports.getCurrentUserById = async (targetId) => {
   });
 };
 
-module.exports.getMainDriveOfUserById = async (id) => {
+// Parameters: FolderID to search, the column name to sort, and if its in ascending order
+module.exports.getMainDriveOfUserById = async (id, colName = 'name', isAsc = true) => {
+
+  let filesColName = ( colName === 'createdAt' ) ? 'uploadedAt' : colName;
+
+  let sortOrder = ( isAsc ) ? 'asc' : 'desc';
+
   return await prisma.folder.findFirst({
     where: {
       userId: id,
     },
+    // include: {
+    //   subfolders: true,
+    //   files: true
+    // },
     include: {
-      subfolders: true,
-      files: true
-    },
+      subfolders: {
+        orderBy: { [colName] : sortOrder }
+      },
+      files: {
+        orderBy: { [filesColName] : sortOrder }
+      }
+    }
   });
 };
 

@@ -48,6 +48,7 @@ module.exports.myDriveGetRoute = [
     // console.log('Displaying Current url', req.originalUrl);
     // console.log("Display path test", req.baseUrl + req.url);
 
+    console.log("Showing Data:");
     console.dir(myDrive);
 
     res.render('myDrive', {
