@@ -15,6 +15,43 @@ module.exports.drivePostRoute = [
   },
 ];
 
+// Almost the same its GET Route, but with handling logic for sorting
+module.exports.myDrivePostRoute = [
+  isAuth,
+  async(req, res, next) => {
+    console.log('Post Route...');
+    console.log(req.body);
+    console.log(req.body.isAsc === 'true');
+
+    const currentUser = await queries.getCurrentUserById(req.user.id);
+    const urlWithoutQuery = req.baseUrl + req.path;
+    const isEditing = req.query.mode === 'edit';
+
+    let sortOrder = ( req.body.isAsc === "true" ) ? "false" : "true";
+    console.log(sortOrder);
+    let myDrive;
+    if(req.body._method === 'SORT'){
+      myDrive = await queries.getMainDriveOfUserById(currentUser.id, req.body.colName, req.body.isAsc);
+    } else {
+      myDrive = await queries.getMainDriveOfUserById(currentUser.id);
+    }
+
+    let data = [...myDrive.subfolders, ...myDrive.files];
+
+    res.render('myDrive', {
+        title: 'My Drive',
+        folderId: myDrive.id,
+        user: currentUser,
+        data: data,
+        files: myDrive.files,
+        currentUrl: req.originalUrl,
+        urlWithoutQuery: urlWithoutQuery,
+        isEditing: isEditing,
+        targetId: parseInt(req.query.targetId),
+        sortOrder: sortOrder
+    });
+  }
+]
 
 
 // Get Routes
@@ -48,12 +85,14 @@ module.exports.myDriveGetRoute = [
     // console.log('Displaying Current url', req.originalUrl);
     // console.log("Display path test", req.baseUrl + req.url);
 
-    console.log("Showing Data:");
-    console.dir(myDrive);
+    // console.log("Showing Data:");
+    // console.dir(myDrive);
 
-    console.log("Showing combined table");
+    // console.log("Showing combined table");
     let data = [...myDrive.subfolders, ...myDrive.files];
     // console.dir(data);
+
+    console.log("On Get Route");
 
     res.render('myDrive', {
         title: 'My Drive',

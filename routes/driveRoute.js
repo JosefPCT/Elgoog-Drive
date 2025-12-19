@@ -11,6 +11,7 @@ router.get('/', controller.driveGetRoute);
 router.post('/', controller.drivePostRoute);
 
 router.get('/my-drive', controller.myDriveGetRoute);
+router.post('/my-drive', controller.myDrivePostRoute);
 
 router.use('/file', fileRouter);
 

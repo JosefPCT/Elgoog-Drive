@@ -76,6 +76,22 @@
         <img src="<%= file.url%>" alt="Image">
       </div>
     <% }); %>
+      <div>
+        <form action="/drive/my-drive" method="post">
+          <input type="hidden" name="_method" value="SORT">
+          <input type="hidden" name="colName" value="name">
+          <input 
+          type="hidden" 
+          name="isAsc"
+          <% if(locals.sortOrder) { %>
+            value="<%= sortOrder %>"
+          <% } else { %>
+            value="true"
+          <% } %>
+          >
+          <button type="submit">Post</button>
+        </form>
+      </div>
   </div>
 </div>
 
