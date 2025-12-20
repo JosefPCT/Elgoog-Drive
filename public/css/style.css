@@ -102,3 +102,13 @@ body{
 img{
   width: 200px;
 }
+
+.strip-button{
+  border: none;
+  background-color: #fff;
+  border-radius: 3px;
+}
+
+.strip-button:hover{
+  background-color: #aaa;
+}

@@ -14,11 +14,48 @@
         <a href="<%= currentUrl %>">My Drive</a>
       </h1>
     </div>
-    <div class="flex">
-      <p>Name</p>
-      <p>Owner</p>
-      <p>Date Modified</p>
-      <p>File Size</p>
+    <div class="title flex">
+      <div>
+        <form action="/drive/my-drive" method="post">
+          <input type="hidden" name="_method" value="SORT">
+          <input type="hidden" name="colName" value="name">
+          <input 
+          type="hidden" 
+          name="isAsc"
+          <% if(locals.sortOrder) { %>
+            value="<%= sortOrder %>"
+          <% } else { %>
+            value="true"
+          <% } %>
+          >
+          <button class="strip-button" type="submit">Name</button>
+        </form>
+      </div>
+      <div>
+        <span>Owner</span>
+      </div>
+      <div>
+        <form action="/drive/my-drive" method="post">
+          <input type="hidden" name="_method" value="SORT">
+          <input type="hidden" name="colName" value="updatedAt">
+          <input 
+          type="hidden" 
+          name="isAsc"
+          <% if(locals.sortOrder) { %>
+            value="<%= sortOrder %>"
+          <% } else { %>
+            value="true"
+          <% } %>
+          >
+          <button class="strip-button" type="submit">Date Modified</button>
+        </form>
+      </div>
+      <div>
+        <span>File Size</span>
+      </div>
+      <div>
+        <span>Sort By</span>
+      </div>
     </div>
     <% if(locals.data) { %>
       <div class="overflow">
@@ -68,6 +105,9 @@
         <% }); %>
       </div>
     <% } %>
+  </div>
+  
+</div>
     <% files.forEach(file => { %>
       <div>
         <p>Name: <%= file.name %></p>
@@ -89,11 +129,10 @@
             value="true"
           <% } %>
           >
-          <button type="submit">Post</button>
+          <button class="strip-button" type="submit">Name</button>
         </form>
+        
       </div>
-  </div>
-</div>
 
 <!-- <button id="openModalBtn">Add New Folder</button>
 
