@@ -86,18 +86,64 @@ body{
   padding: 8px;
 }
 
+.data-main-container{
+  /* justify-content: space-between; */
+}
+
+.buttons-container{
+  min-width: 200px;
+}
+
 .data-container{
   /* background-color: red; */
   background-color: #fff;
   padding: 15px;
   border-radius: 9px;
+  flex-grow: 1;
+  
+}
+
+.title{
+  display: flex;
+  gap: 30px;
+  font-size: 1.1em;
+  justify-content: space-between;
+  /* align-content: center; */
+  /* background-color: red; */
+}
+
+.title button{
+  font-size: 1.1em;
+}
+
+.title div{
+  /* display: flex; */
+  /* justify-content: center; */
+  /* background-color: red; */
+  
 }
 
 .overflow{
   height: 400px;
   overflow: auto;
+  /* overflow; scroll; */
+  /* background-color: blue; */
 }
 
+.data-content{
+  /* background-color: yellow; */
+  display: flex;
+  justify-content: space-between;
+}
+
+
+
+.data-content div{
+  display: flex;
+  justify-content: space-between;
+  min-width: 100px;
+  /* background-color: red; */
+}
 
 img{
   width: 200px;
@@ -112,3 +158,4 @@ img{
 .strip-button:hover{
   background-color: #aaa;
 }
+

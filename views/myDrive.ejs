@@ -2,8 +2,8 @@
 
 
 
-<div class="flex">
-  <div>
+<div class="flex data-main-container">
+  <div class="buttons-container">
     <%- include('partials/createFolderModal.ejs') %> 
     <%- include('partials/uploadFileModal.ejs') %>
   </div>
@@ -61,7 +61,7 @@
       <div class="overflow">
         <% data.forEach(data => { %>
         <% if(isEditing && targetId === data.id) { %>
-          <div class="flex">
+          <div class="flex data-content">
             <form action="/drive/folder/<%= data.id %>/edit" method="post">
               <input type="hidden" name="previous_url" value="<%= urlWithoutQuery %>">
               <input type="hidden" name="parent_folder_id" value="<%= data.parentId %>">
@@ -72,11 +72,13 @@
             </form>
           </div>
         <% } else { %> 
-          <div class="flex">
-            <a href="/drive/folder/<%= data.id %>">
-              <p><%= data.name %></p>
-            </a>
+          <div class="flex data-content">
             <div>
+              <a href="/drive/folder/<%= data.id %>">
+                <p><%= data.name %></p>
+              </a>
+            </div>
+            <div class="owner">
               <p><%= user.firstName %> <%= user.lastName %></p>
             </div>
             <div>

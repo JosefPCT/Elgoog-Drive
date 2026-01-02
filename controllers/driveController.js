@@ -27,6 +27,7 @@ module.exports.myDrivePostRoute = [
     const urlWithoutQuery = req.baseUrl + req.path;
     const isEditing = req.query.mode === 'edit';
 
+    // Have to use a string so that using `locals.sortOrder` in the view won't give false positives
     let sortOrder = ( req.body.isAsc === "true" ) ? "false" : "true";
     console.log(sortOrder);
     let myDrive;
