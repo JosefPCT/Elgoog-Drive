@@ -74,9 +74,15 @@
         <% } else { %> 
           <div class="flex data-content">
             <div>
-              <a href="/drive/folder/<%= data.id %>">
-                <p><%= data.name %></p>
-              </a>
+              <% if(data.size) { %> 
+                <a href="/drive/file/<%= data.id %>">
+                  <p><%= data.name %></p>
+                </a>
+              <% } else { %>
+                <a href="/drive/folder/<%= data.id %>">
+                  <p><%= data.name %></p>
+                </a>
+              <%  } %>
             </div>
             <div class="owner">
               <p><%= user.firstName %> <%= user.lastName %></p>
