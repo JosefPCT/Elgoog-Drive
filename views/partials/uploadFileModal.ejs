@@ -5,6 +5,9 @@
       <% if(locals.folderId) { %>
         <input type="hidden" name="parentFolderId" value="<%= folderId %>" />
       <% } %>
+      <% if(locals.urlWithoutQuery) { %> 
+        <input type="hidden" name="previousUrl" value="<%= urlWithoutQuery %>">
+      <% } %>
       <label for="textInput">Test Text Input:</label>
       <input type="text" name="textInput" id="textInput" /><br />
 

@@ -20,7 +20,9 @@ module.exports.fileNewPostRoute = [
     }
 
     // Test Uploading To Supabase And Saving to DB
-    const filePath = 'testfold/testfile';
+    const folderPath = `${req.user.id}`;
+    const fileName = req.body.textInput;
+    const filePath = `${folderPath}/${fileName}`;
 
     const { data, error } = await supabase.storage.from('testbuck1').upload(filePath, req.file.buffer, {
         cacheControl: '3600',
@@ -39,6 +41,8 @@ module.exports.fileNewPostRoute = [
         await queries.createFileData(parseInt(req.body.parentFolderId), req.body.textInput, req.file.size , data.publicUrl);
       }
     }
+
+    res.redirect(req.body.previousUrl);
     
     // Cloudinary stuff
 
