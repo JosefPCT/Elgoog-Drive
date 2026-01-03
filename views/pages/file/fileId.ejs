@@ -1,0 +1,22 @@
+<%- include('../../partials/header.ejs') %>
+<main>
+    <div>
+        <% if(locals.data)  { %> 
+            <div>
+                <div>
+                    <p>Filename: <%= data.name %> </p>
+                </div>
+                <div>
+                    <p>Size: <%= data.size %>kbs</p>
+                </div>
+                <div>
+                    <button>Download</button>
+                </div>
+            </div>
+            <div>
+                <img class="big-img"src="<%= data.url %>" alt="Picture of <%= data.name %>">
+            </div>
+        <% } %>
+    </div>
+</main>
+<%- include('../../partials/footer.ejs') %>

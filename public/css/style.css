@@ -87,7 +87,7 @@ body{
 }
 
 .data-main-container{
-  /* justify-content: space-between; */
+  /* background-color: red; */
 }
 
 .buttons-container{
@@ -155,6 +155,10 @@ body{
 
 img{
   width: 200px;
+}
+
+.big-img{
+  width: 900px;
 }
 
 .strip-button{

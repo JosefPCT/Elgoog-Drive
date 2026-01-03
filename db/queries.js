@@ -66,6 +66,14 @@ module.exports.getFolderByNameInsideAFolder = async (folderId, name) => {
 //   });
 // };
 
+module.exports.getFileById = async(id) => {
+  return await prisma.file.findFirst({
+    where: {
+      id: id,
+    }
+  });
+}
+
 module.exports.findUserByEmail = async (targetEmail) => {
   return await prisma.user.findFirst({
     where: {

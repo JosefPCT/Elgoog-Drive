@@ -100,3 +100,18 @@ module.exports.fileNewPostRoute = [
 ];
 
 // Get Route
+
+module.exports.fileIdGetRoute = [
+  isAuth,
+  async (req, res, next) => {
+    const fileId = req.params.fileId;
+    console.log(fileId);
+    const result = await queries.getFileById(parseInt(fileId));
+    console.log(result);
+
+    res.render("pages/file/fileId", {
+      title: 'File',
+      data: result
+    })
+  }
+]
