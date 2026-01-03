@@ -111,7 +111,8 @@ module.exports.fileIdGetRoute = [
 
     res.render("pages/file/fileId", {
       title: 'File',
-      data: result
+      data: result,
+      user: req.user
     })
   }
 ]
