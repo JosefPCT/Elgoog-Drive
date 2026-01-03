@@ -105,7 +105,7 @@ body{
 
 .title{
   display: flex;
-  gap: 30px;
+  /* gap: 30px; */
   font-size: 1.1em;
   justify-content: space-between;
   /* align-content: center; */
@@ -117,7 +117,9 @@ body{
 }
 
 .title div{
-  /* display: flex; */
+  display: flex;
+  min-width: 140px;
+  flex-basis: 140px;
   /* justify-content: center; */
   /* background-color: red; */
   
@@ -140,9 +142,15 @@ body{
 
 .data-content div{
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   min-width: 100px;
+  flex-basis: 100px;
   /* background-color: red; */
+}
+
+.flex-center{
+  display: flex;
+  justify-content: center;
 }
 
 img{
