@@ -39,15 +39,33 @@ module.exports.getMainDriveOfUserById = async (id, colName = 'name', isAsc = 'tr
   });
 };
 
-module.exports.getFolderById = async (id) => {
+module.exports.getFolderById = async (id, colName = 'name', isAsc = 'true') => {
+  let filesColName = ( colName === 'createdAt' ) ? 'uploadedAt' : colName;
+  let sortOrder = ( isAsc === 'true' ) ? 'asc' : 'desc';
+
   return await prisma.folder.findFirst({
     where: {
       id: id,
     },
     include: {
-      subfolders: true,
+      subfolders: {
+        orderBy: { [colName] : sortOrder }
+      },
+      files: {
+        orderBy: { [filesColName] : sortOrder }
+      }
     },
   });
+
+  // return await prisma.folder.findFirst({
+  //   where: {
+  //     id: id,
+  //   },
+  //   include: {
+  //     subfolders: true,
+  //   },
+  // });
+  
 };
 
 module.exports.getFolderByNameInsideAFolder = async (folderId, name) => {
