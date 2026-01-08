@@ -86,7 +86,9 @@ module.exports.newFolderPostRoute = [
 module.exports.folderIdPostRoute = [
   isAuth,
   async(req, res, next) => {
+    console.log("Folder Id Post Route...");
     // const folder = await queries.getFolderById(parseInt(req.params.folderId));
+    const currentUser = await queries.getCurrentUserById(req.user.id);
     const urlWithoutQuery = req.baseUrl + req.path;
     const isEditing = req.query.mode === 'edit';
     
@@ -102,6 +104,7 @@ module.exports.folderIdPostRoute = [
     }
 
     let data = [...folder.subfolders, ...folder.files];
+    console.log("Showing data...", data);
 
     // Creating the nav object
     let flag = true;
@@ -109,7 +112,7 @@ module.exports.folderIdPostRoute = [
     let targetFolderId = req.params.folderId;
     while(flag){
       let currFolder = await queries.getFolderById(parseInt(targetFolderId));
-      console.log(currFolder);
+      // console.log(currFolder);
       nav.unshift({id: currFolder.id, name: currFolder.name});
       targetFolderId = currFolder.parentId;
       if(currFolder.parentId === null) {
@@ -120,7 +123,7 @@ module.exports.folderIdPostRoute = [
     res.render("pages/folder/folderId", {
       title: "Folder",
       folderId: folder.id,
-      user: 'Test User',
+      user: currentUser,
       data: data,
       nav: nav,
       savedUrl: req.originalUrl,
@@ -174,6 +177,7 @@ module.exports.folderIdGetRoute = [
   isAuth,
   async (req, res, next) => {
     const folder = await queries.getFolderById(parseInt(req.params.folderId));
+    const currentUser = await queries.getCurrentUserById(req.user.id);
     const urlWithoutQuery = req.baseUrl + req.path;
     const isEditing = req.query.mode === 'edit';
 
@@ -201,6 +205,7 @@ module.exports.folderIdGetRoute = [
     res.render("pages/folder/folderId", {
       title: "Folder",
       folderId: folder.id,
+      user: currentUser,
       data: data,
       nav: nav,
       savedUrl: req.originalUrl,

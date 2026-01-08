@@ -1,39 +1,78 @@
 <%- include('../../partials/header.ejs') %>
 
 
-<div class="flex">
-  <div>
+<div class="flex data-main-container">
+  <div class="buttons-container">
     <%- include('../../partials/createFolderModal.ejs') %> 
     <%- include('../../partials/uploadFileModal.ejs') %>
   </div>
 
-  <div>
+  <div class="data-container">
     <% if(locals.nav) { %>
-      <h2>
-        <% nav.forEach((element, ind) => { %>
-          <% if(element.name === 'My Drive') { %> 
-            <a href="/drive/my-drive"><%= element.name %></a> 
-            >
-          <% } else { %>
-            <a href="/drive/folder/<%= element.id %>"><%= element.name %></a>
-            <% if(nav.length - 1 !== ind) { %>
-              <span>></span>
+      <div>
+        <h2>
+          <% nav.forEach((element, ind) => { %>
+            <% if(element.name === 'My Drive') { %>
+              <a href="/drive/my-drive"><%= element.name %></a>
+              >
+            <% } else { %>
+              <a href="/drive/folder/<%= element.id %>"><%= element.name %></a>
+              <% if(nav.length - 1 !== ind) { %>
+                <span>></span>
+              <% } %>
             <% } %>
-          <% } %>
-        <% }); %>
-      </h2>
+          <% }); %>
+        </h2>
+      </div>
     <% } %>
-    <div class="flex">
-      <p>Name</p>
-      <p>Owner</p>
-      <p>Date Modified</p>
-      <p>File Size</p>
+    <div class="title flex">
+      <div>
+        <form action="/drive/folder/<%= folderId %>" method="post">
+          <input type="hidden" name="_method" value="SORT">
+          <input type="hidden" name="colName" value="name">
+          <input 
+          type="hidden" 
+          name="isAsc"
+          <% if(locals.sortOrder) { %>
+            value="<%= sortOrder %>"
+          <% } else { %>
+            value="true"
+          <% } %>
+          >
+          <button class="strip-button" type="submit">Name</button>
+        </form>
+      </div>
+      <div>
+        <span>Owner</span>
+      </div>
+      <div>
+        <form action="/drive/folder/<%= folderId %>" method="post">
+          <input type="hidden" name="_method" value="SORT">
+          <input type="hidden" name="colName" value="updatedAt">
+          <input 
+          type="hidden" 
+          name="isAsc"
+          <% if(locals.sortOrder) { %>
+            value="<%= sortOrder %>"
+          <% } else { %>
+            value="true"
+          <% } %>
+          >
+          <button class="strip-button" type="submit">Date Modified</button>
+        </form>
+      </div>
+      <div>
+        <span>File Size</span>
+      </div>
+      <div>
+        <span>Sort By</span>
+      </div>
     </div>
     <% if(locals.data) { %>
-      <div>
+      <div class="overflow">
         <% data.forEach(data => { %>
         <% if(isEditing && targetId === data.id) { %>
-          <div class="flex">
+          <div class="flex data-content">
             <form action="/drive/folder/<%= data.id %>/edit" method="post">
               <input type="hidden" name="previous_url" value="<%= urlWithoutQuery %>">
               <input type="hidden" name="parent_folder_id" value="<%= data.parentId %>">
@@ -44,18 +83,33 @@
             </form>
           </div>
         <% } else { %> 
-          <div class="flex">
-            <a href="/drive/folder/<%= data.id %>">
-              <p><%= data.name %></p>
-            </a>
+          <div class="flex data-content">
             <div>
-              <p>User</p>
+              <% if(data.size) { %> 
+                <a href="/drive/file/<%= data.id %>">
+                  <p><%= data.name %></p>
+                </a>
+              <% } else { %>
+                <a href="/drive/folder/<%= data.id %>">
+                  <p><%= data.name %></p>
+                </a>
+              <%  } %>
             </div>
-            <div>
+            <div class="owner">
+              <p><%= user.firstName %> <%= user.lastName %></p>
+            </div>
+            <div class="flex-center">
               <%= data.updatedAt.toISOString().substring(0, 10) %>
             </div>
+            <div class="flex-center">
+              <% if(data.size) { %>
+                <%= data.size %>kbs
+              <% }  else { %>
+                --
+              <% } %>
+            </div>
             <div class="flex">
-              <a href="/drive/folder/<%= folderId %>?mode=edit&targetId=<%= data.id %>"><button>Edit</button></a>
+              <a href="/drive/my-drive?mode=edit&targetId=<%= data.id %>"><button>Edit</button></a>
               <div>
                 <form action="/drive/folder/<%= data.id %>/delete" method="post">
                   <input type="hidden" name="previousUrl" value="<%= urlWithoutQuery %>" />
@@ -71,6 +125,7 @@
       </div>
     <% } %>
   </div>
+  
 </div>
 
 <script src="/js/modalHandler.js"></script>
