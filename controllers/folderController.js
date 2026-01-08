@@ -86,7 +86,49 @@ module.exports.newFolderPostRoute = [
 module.exports.folderIdPostRoute = [
   isAuth,
   async(req, res, next) => {
+    // const folder = await queries.getFolderById(parseInt(req.params.folderId));
+    const urlWithoutQuery = req.baseUrl + req.path;
+    const isEditing = req.query.mode === 'edit';
     
+    
+
+    let sortOrder = ( req.body.isAsc === "true" ) ? "false" : "true";
+    console.log(sortOrder);
+    let folder;
+    if(req.body._method === 'SORT'){
+      folder = await queries.getFolderById(parseInt(req.params.folderId), req.body.colName, req.body.isAsc);
+    } else {
+      folder = await queries.getFolderById(parseInt(req.params.folderId));
+    }
+
+    let data = [...folder.subfolders, ...folder.files];
+
+    // Creating the nav object
+    let flag = true;
+    let nav = [];
+    let targetFolderId = req.params.folderId;
+    while(flag){
+      let currFolder = await queries.getFolderById(parseInt(targetFolderId));
+      console.log(currFolder);
+      nav.unshift({id: currFolder.id, name: currFolder.name});
+      targetFolderId = currFolder.parentId;
+      if(currFolder.parentId === null) {
+        flag = false;
+      } 
+    }
+
+    res.render("pages/folder/folderId", {
+      title: "Folder",
+      folderId: folder.id,
+      user: 'Test User',
+      data: data,
+      nav: nav,
+      savedUrl: req.originalUrl,
+      urlWithoutQuery, urlWithoutQuery,
+      isEditing: isEditing,
+      targetId: parseInt(req.query.targetId),
+      sortOrder: sortOrder
+    });
   }
 ]
 
@@ -132,7 +174,11 @@ module.exports.folderIdGetRoute = [
   isAuth,
   async (req, res, next) => {
     const folder = await queries.getFolderById(parseInt(req.params.folderId));
-    
+    const urlWithoutQuery = req.baseUrl + req.path;
+    const isEditing = req.query.mode === 'edit';
+
+    let data = [...folder.subfolders, ...folder.files];
+
     // Creating the nav object
     let flag = true;
     let nav = [];
@@ -147,11 +193,6 @@ module.exports.folderIdGetRoute = [
       } 
     }
     
-    const urlWithoutQuery = req.baseUrl + req.path;
-    const isEditing = req.query.mode === 'edit';
-    
-    let data = [...folder.subfolders, ...folder.files];
-
     // console.log("Folder id...", req.params.folderId);
     // console.log(folder);
     // console.log(`Showing nav:`, nav);
