@@ -83,6 +83,13 @@ module.exports.newFolderPostRoute = [
   },
 ];
 
+module.exports.folderIdPostRoute = [
+  isAuth,
+  async(req, res, next) => {
+    
+  }
+]
+
 module.exports.editFolderIdPostRoute = [
   isAuth,
   validateEditFolder,
@@ -142,6 +149,8 @@ module.exports.folderIdGetRoute = [
     
     const urlWithoutQuery = req.baseUrl + req.path;
     const isEditing = req.query.mode === 'edit';
+    
+    let data = [...folder.subfolders, ...folder.files];
 
     // console.log("Folder id...", req.params.folderId);
     // console.log(folder);
@@ -151,7 +160,7 @@ module.exports.folderIdGetRoute = [
     res.render("pages/folder/folderId", {
       title: "Folder",
       folderId: folder.id,
-      data: folder.subfolders,
+      data: data,
       nav: nav,
       savedUrl: req.originalUrl,
       urlWithoutQuery, urlWithoutQuery,

@@ -100,12 +100,11 @@ module.exports.myDriveGetRoute = [
         folderId: myDrive.id,
         user: currentUser,
         data: data,
-        files: myDrive.files,
         currentUrl: req.originalUrl,
         urlWithoutQuery: urlWithoutQuery,
         isEditing: isEditing,
-        targetId: parseInt(req.query.targetId)
-        
+        targetId: parseInt(req.query.targetId),
+        files: myDrive.files,
     });
   },
 ];

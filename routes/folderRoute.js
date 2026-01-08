@@ -6,7 +6,7 @@ const router = Router();
 
 // Post Route
 router.post('/new', controller.newFolderPostRoute);
-
+router.post('/:folderId', controller.folderIdPostRoute);
 router.post('/:folderId/edit', controller.editFolderIdPostRoute);
 router.post('/:folderId/delete', controller.deleteFolderIdPostRoute);
 
