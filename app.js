@@ -7,6 +7,7 @@ const path = require('path');
 const pclient = require('./db/client');
 const indexRouter = require('./routes/index'); 
 const driveRouter = require('./routes/driveRoute');
+const shareRoute = require('./routes/shareRoute');
 
 require('dotenv').config();
 const app = express();
@@ -60,6 +61,7 @@ app.use((req, res, next) => {
 
 app.use('/', indexRouter);
 app.use('/drive', driveRouter);
+app.use('/share', shareRoute);
 
 app.listen(PORT, () => {
   console.log("Listening to Port", PORT);

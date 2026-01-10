@@ -37,7 +37,7 @@ module.exports.myDrivePostRoute = [
       myDrive = await queries.getMainDriveOfUserById(currentUser.id);
     }
 
-    let data = [...myDrive.subfolders, ...myDrive.files];
+
 
     res.render('myDrive', {
         title: 'My Drive',
@@ -94,6 +94,29 @@ module.exports.myDriveGetRoute = [
     // console.dir(data);
 
     console.log("On Get Route");
+
+    console.log("Testing data...");
+    data.forEach((item) => {
+      console.log('Created At');
+      let x = item.createdAt ? item.createdAt : item.uploadedAt;
+      // console.log(x.getTime());
+      console.log(x);
+
+      const differenceInMilliSeconds = Date.now() - x;
+
+      // Converion Factors
+      const oneSecond = 1000;
+      const oneMinute = oneSecond * 60;
+      const oneHour = oneMinute * 60;
+      const oneDay = oneHour * 24;
+
+      const differenceInSeconds = differenceInMilliSeconds / oneSecond;
+      const diffInMins = differenceInMilliSeconds / oneMinute;
+      const diffInHours = differenceInMilliSeconds / oneHour;
+      const diffInDays = differenceInMilliSeconds / oneDay;
+
+      console.log('Diff in days', diffInDays);
+    })
 
     res.render('myDrive', {
         title: 'My Drive',
