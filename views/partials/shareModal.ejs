@@ -1,0 +1,19 @@
+<div id="shareModal" class="modal" style="display: none">
+  <div class="modal-content">
+    <span class="shareModal close-button">&times;</span>
+    <form action="/share/new" method="post">
+      <% if(locals.folderId) { %>
+        <input type="hidden" name="parentFolderId" value="<%= folderId %>" />
+      <% } %>
+      <% if(locals.urlWithoutQuery) { %> 
+        <input type="hidden" name="previousUrl" value="<%= urlWithoutQuery %>">
+      <% } %>
+      <label for="textInput">How long do you want to share?</label>
+      <input type="text" name="textInput" id="textInput" /><br />
+
+      <button type="submit">Process the link</button>
+    </form>
+  </div>
+</div>
+
+<button onclick="openShareModal()">Share This Folder</button>

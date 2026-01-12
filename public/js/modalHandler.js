@@ -1,4 +1,5 @@
 // public/js/modalHandler.js
+
 // Create Folder Modal Handler
 const createFolderModal = document.getElementById('createFolderModal');
 const createFolderModalCloseButton = document.querySelector('.createFolderModal.close-button');
@@ -52,8 +53,25 @@ window.onclick = function(event) {
   }
 };
 
-// Example action handler
-function handleModalAction() {
-  alert('Modal action performed!');
-  closeUploadFileModal();
+// Share Folder/File Modal Handler
+const shareModal = document.getElementById('shareModal');
+const shareModalCloseButton = document.querySelector('.shareModal.close-button');
+
+function openShareModal() {
+  // let node = e.target;
+  // console.log(node);
+  shareModal.style.display = 'block';
 }
+
+function closeShareModal() {
+  shareModal.style.display = 'none';
+}
+
+shareModalCloseButton.onclick = closeShareModal;
+
+// Close the modal if the user clicks outside of it
+window.onclick = function(event) {
+  if (event.target == shareModal) {
+    closeShareModal();
+  }
+};
