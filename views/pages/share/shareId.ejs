@@ -72,11 +72,11 @@
           <div class="flex data-content">
             <div>
               <% if(data.size) { %> 
-                <a href="/share/<%= shareId %>/file/<%= folderId %>">
+                <a href="/share/<%= shareId %>/file/<%= data.id %>">
                   <p><%= data.name %></p>
                 </a>
               <% } else { %>
-                <a href="/share/<%= shareId %>/folder/<%= folderId %>">
+                <a href="/share/<%= shareId %>/folder/<%= data.id %>">
                   <p><%= data.name %></p>
                 </a>
               <%  } %>

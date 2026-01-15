@@ -11,5 +11,7 @@ router.post('/new', controller.newSharePostRoute);
 router.get('/:id', controller.shareIdGetRoute);
 router.get('/:id/folder/:folderId', controller.shareFolderIdGetRoute);
 
+router.get('/:id/file/:fileId', controller.shareFileIdGetRoute);
+
 
 module.exports = router;
