@@ -83,7 +83,13 @@ module.exports.myDriveGetRoute = [
       console.log('Getting share data...', data);
       let createdAt = data.createdAt;
 
+      console.log("Calculating...");
+      console.log(Date.now())
+      console.log(createdAt);
+      console.log(createdAt.getTime());
+      console.log(Date.now() - createdAt.getTime());
       const differenceInMilliSeconds = Date.now() - createdAt;
+      console.log(differenceInMilliSeconds);
 
       const oneSecond = 1000;
       const oneMinute = oneSecond * 60;
