@@ -91,6 +91,7 @@ module.exports.folderIdPostRoute = [
     const currentUser = await queries.getCurrentUserById(req.user.id);
     const urlWithoutQuery = req.baseUrl + req.path;
     const isEditing = req.query.mode === 'edit';
+    const isSharing = !!req.query.sharing;
     
     
 
@@ -130,7 +131,9 @@ module.exports.folderIdPostRoute = [
       urlWithoutQuery, urlWithoutQuery,
       isEditing: isEditing,
       targetId: parseInt(req.query.targetId),
-      sortOrder: sortOrder
+      sortOrder: sortOrder,
+      isSharing: isSharing,
+      shareId: req.query.sharing
     });
   }
 ]
@@ -180,6 +183,7 @@ module.exports.folderIdGetRoute = [
     const currentUser = await queries.getCurrentUserById(req.user.id);
     const urlWithoutQuery = req.baseUrl + req.path;
     const isEditing = req.query.mode === 'edit';
+    const isSharing = !!req.query.sharing;
 
     let data = [...folder.subfolders, ...folder.files];
 
@@ -211,7 +215,9 @@ module.exports.folderIdGetRoute = [
       savedUrl: req.originalUrl,
       urlWithoutQuery, urlWithoutQuery,
       isEditing: isEditing,
-      targetId: parseInt(req.query.targetId)
+      targetId: parseInt(req.query.targetId),
+      isSharing: isSharing,
+      shareId: req.query.sharing
     });
   },
 ];

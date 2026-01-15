@@ -26,6 +26,7 @@ module.exports.myDrivePostRoute = [
     const currentUser = await queries.getCurrentUserById(req.user.id);
     const urlWithoutQuery = req.baseUrl + req.path;
     const isEditing = req.query.mode === 'edit';
+    const isSharing = !!req.query.sharing;
 
     // Have to use a string so that using `locals.sortOrder` in the view won't give false positives
     let sortOrder = ( req.body.isAsc === "true" ) ? "false" : "true";
@@ -37,7 +38,7 @@ module.exports.myDrivePostRoute = [
       myDrive = await queries.getMainDriveOfUserById(currentUser.id);
     }
 
-
+    let data = [...myDrive.subfolders, ...myDrive.files];
 
     res.render('myDrive', {
         title: 'My Drive',
@@ -49,7 +50,9 @@ module.exports.myDrivePostRoute = [
         urlWithoutQuery: urlWithoutQuery,
         isEditing: isEditing,
         targetId: parseInt(req.query.targetId),
-        sortOrder: sortOrder
+        sortOrder: sortOrder,
+        isSharing: isSharing,
+        shareId: req.query.sharing
     });
   }
 ]
