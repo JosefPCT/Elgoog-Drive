@@ -16,6 +16,10 @@ module.exports.newSharePostRoute = async (req, res, next) => {
   res.redirect(`${previousUrl}?sharing=${data.id}`);
 }
 
+// GET Route
+
+
+
 module.exports.shareIdGetRoute = async (req, res, next ) => {
   console.log(req.params.id);
 
@@ -50,6 +54,7 @@ module.exports.shareIdGetRoute = async (req, res, next ) => {
     res.render('pages/share/shareId', {
     title: 'Shared Folder',
     user: req.user,
+    shareId: req.params.id,
     folderId: 1,
     data: data,
     urlWithoutQuery: 'a',
@@ -59,6 +64,8 @@ module.exports.shareIdGetRoute = async (req, res, next ) => {
     console.log("Link Expired");
     res.send("Link has expired");
   }
+}
 
-  
+module.exports.shareFolderIdGetRoute = async(req, res, next) =>{
+  res.send('aa.');
 }

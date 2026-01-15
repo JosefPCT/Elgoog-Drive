@@ -24,7 +24,7 @@
     <% } %>
     <div class="title flex">
       <div>
-        <form action="/drive/folder/<%= folderId %>" method="post">
+        <form action="/share/<%= shareId %>/folder/<%= folderId %>" method="post">
           <input type="hidden" name="_method" value="SORT">
           <input type="hidden" name="colName" value="name">
           <input 
@@ -43,7 +43,7 @@
         <span>Owner</span>
       </div>
       <div>
-        <form action="/drive/folder/<%= folderId %>" method="post">
+        <form action="/share/<%= shareId %>/folder/<%= folderId %>" method="post">
           <input type="hidden" name="_method" value="SORT">
           <input type="hidden" name="colName" value="updatedAt">
           <input 
@@ -72,11 +72,11 @@
           <div class="flex data-content">
             <div>
               <% if(data.size) { %> 
-                <a href="/drive/file/<%= data.id %>">
+                <a href="/share/<%= shareId %>/file/<%= folderId %>">
                   <p><%= data.name %></p>
                 </a>
               <% } else { %>
-                <a href="/drive/folder/<%= data.id %>">
+                <a href="/share/<%= shareId %>/folder/<%= folderId %>">
                   <p><%= data.name %></p>
                 </a>
               <%  } %>
