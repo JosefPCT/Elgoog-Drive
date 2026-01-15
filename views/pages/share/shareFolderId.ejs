@@ -1,0 +1,109 @@
+<%- include('../../partials/header.ejs') %>
+
+<div class="flex data-main-container">
+    <div class="data-container">
+        <div>
+            <h2>Shared Folder</h2>
+        </div>
+    <% if(locals.nav) { %>
+      <div>
+        <h2>
+          <% nav.forEach((element, ind) => { %>
+            <% if(element.name === 'My Drive') { %>
+              <a href="/drive/my-drive"><%= element.name %></a>
+              >
+            <% } else { %>
+              <a href="/drive/folder/<%= element.id %>"><%= element.name %></a>
+              <% if(nav.length - 1 !== ind) { %>
+                <span>></span>
+              <% } %>
+            <% } %>
+          <% }); %>
+        </h2>
+      </div>
+    <% } %>
+    <div class="title flex">
+      <div>
+        <form action="/share/<%= shareId %>/folder/<%= folderId %>" method="post">
+          <input type="hidden" name="_method" value="SORT">
+          <input type="hidden" name="colName" value="name">
+          <input 
+          type="hidden" 
+          name="isAsc"
+          <% if(locals.sortOrder) { %>
+            value="<%= sortOrder %>"
+          <% } else { %>
+            value="true"
+          <% } %>
+          >
+          <button class="strip-button" type="submit">Name</button>
+        </form>
+      </div>
+      <div>
+        <span>Owner</span>
+      </div>
+      <div>
+        <form action="/share/<%= shareId %>/folder/<%= folderId %>" method="post">
+          <input type="hidden" name="_method" value="SORT">
+          <input type="hidden" name="colName" value="updatedAt">
+          <input 
+          type="hidden" 
+          name="isAsc"
+          <% if(locals.sortOrder) { %>
+            value="<%= sortOrder %>"
+          <% } else { %>
+            value="true"
+          <% } %>
+          >
+          <button class="strip-button" type="submit">Date Modified</button>
+        </form>
+      </div>
+      <div>
+        <span>File Size</span>
+      </div>
+      <div>
+        <span>Sort By</span>
+      </div>
+    </div>
+    <% if(locals.data) { %>
+      <div class="overflow">
+        <% data.forEach(data => { %>
+
+          <div class="flex data-content">
+            <div>
+              <% if(data.size) { %> 
+                <a href="/share/<%= shareId %>/file/<%= data.id %>">
+                  <p><%= data.name %></p>
+                </a>
+              <% } else { %>
+                <a href="/share/<%= shareId %>/folder/<%= data.id %>">
+                  <p><%= data.name %></p>
+                </a>
+              <%  } %>
+            </div>
+            <div class="owner">
+              <p><%= user.firstName %> <%= user.lastName %></p>
+            </div>
+            <div class="flex-center">
+              <%= data.updatedAt.toISOString().substring(0, 10) %>
+            </div>
+            <div class="flex-center">
+              <% if(data.size) { %>
+                <%= data.size %>kbs
+              <% }  else { %>
+                --
+              <% } %>
+            </div>
+            <div class="flex-center">
+                --
+            </div>
+
+            
+          </div>
+        <% }); %>
+      </div>
+    <% } %>
+  </div>
+</div>
+
+<%- include('../../partials/footer.ejs') %>
