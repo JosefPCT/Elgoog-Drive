@@ -1,0 +1,15 @@
+<div id="viewShareModal" 
+     class="modal" 
+     <% if(isSharing) { %>
+        style="display: block"
+     <% }  else { %>
+        style="display: none"
+     <% } %>
+>
+  <div class="modal-content">
+    <span class="viewShareModal close-button">&times;</span>
+    <p>Share id: <%= shareId %></p>
+    <p>Link: <a href="/share/<%= shareId %>">Go To Link</a></p>
+  </div>
+</div>
+

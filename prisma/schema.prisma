@@ -40,6 +40,7 @@ model Folder {
   parent     Folder?   @relation("ParentSubFolderRel", fields: [parentId], references: [id], onDelete: Cascade)
   subfolders Folder[]  @relation("ParentSubFolderRel")
   files      File[]
+  shares     Share[]
 }
 
 model File {
@@ -51,4 +52,12 @@ model File {
   updatedAt  DateTime? @updatedAt @db.Timestamptz(6)
   folderId   Int
   folder     Folder    @relation(fields: [folderId], references: [id])
+}
+
+model Share{
+  id  String  @id @default(uuid()) @db.Uuid
+  createdAt  DateTime  @default(now()) @db.Timestamptz(6)
+  expiry  Int
+  folderId  Int
+  folder  Folder  @relation(fields: [folderId], references: [id])
 }

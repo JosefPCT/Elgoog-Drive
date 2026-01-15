@@ -75,3 +75,25 @@ window.onclick = function(event) {
     closeShareModal();
   }
 };
+
+// View Share Details Modal Handler
+const viewShareModal = document.getElementById('viewShareModal');
+const viewShareModalCloseButton = document.querySelector('.viewShareModal.close-button');
+
+function openViewShareModal(){
+  viewShareModal.style.display = 'block';
+}
+
+function closeViewShareModal(){
+  viewShareModal.style.display = 'none';
+}
+
+viewShareModalCloseButton.onclick = closeViewShareModal;;
+
+window.onclick = function(event) {
+  if (event.target == viewShareModal){
+    closeViewShareModal();
+  }
+}
+
+

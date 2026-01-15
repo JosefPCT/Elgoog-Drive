@@ -100,6 +100,14 @@ module.exports.findUserByEmail = async (targetEmail) => {
   });
 };
 
+module.exports.findShareDataById = async(id) => {
+  return await prisma.share.findFirst({
+    where: {
+      id: id,
+    },
+  });
+};
+
 // Create Queries
 
 module.exports.createUserAndMainFolderThenReturn = async (
@@ -172,6 +180,17 @@ module.exports.createFileData = async (parentFolderId, name, size, url) => {
     },
   });
 };
+
+module.exports.createAndReturnShareData = async(expiry, folderId) => {
+  const createdData = await prisma.share.create({
+    data: {
+      expiry: expiry,
+      folderId: folderId
+    }
+  });
+
+  return createdData;
+}
 
 // EDIT Queries
 

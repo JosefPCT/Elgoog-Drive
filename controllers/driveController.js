@@ -75,6 +75,32 @@ module.exports.myDriveGetRoute = [
     const myDrive = await queries.getMainDriveOfUserById(currentUser.id);
     const urlWithoutQuery = req.baseUrl + req.path;
     const isEditing = req.query.mode === 'edit';
+    const isSharing = !!req.query.sharing;
+
+    console.log(isSharing);
+    if(isSharing){
+      const data = await queries.findShareDataById(req.query.sharing);
+      console.log('Getting share data...', data);
+      let createdAt = data.createdAt;
+
+      const differenceInMilliSeconds = Date.now() - createdAt;
+
+      const oneSecond = 1000;
+      const oneMinute = oneSecond * 60;
+      const oneHour = oneMinute * 60;
+      const oneDay = oneHour * 24;
+
+      const differenceInSeconds = differenceInMilliSeconds / oneSecond;
+      const diffInMins = differenceInMilliSeconds / oneMinute;
+      const diffInHours = differenceInMilliSeconds / oneHour;
+      const diffInDays = differenceInMilliSeconds / oneDay;
+
+      console.log("Difference in days", diffInDays);
+
+      if(data.expiry > diffInDays){
+        console.log("Not expired");
+      }
+    }
    
     // console.log("Current data of user:", currentUser);
     // console.log('Drive', myDrive);
@@ -96,27 +122,29 @@ module.exports.myDriveGetRoute = [
     console.log("On Get Route");
 
     console.log("Testing data...");
-    data.forEach((item) => {
-      console.log('Created At');
-      let x = item.createdAt ? item.createdAt : item.uploadedAt;
-      // console.log(x.getTime());
-      console.log(x);
 
-      const differenceInMilliSeconds = Date.now() - x;
+    // Test for checking expirt of shared folder
+    // data.forEach((item) => {
+    //   console.log('Created At');
+    //   let x = item.createdAt ? item.createdAt : item.uploadedAt;
+    //   // console.log(x.getTime());
+    //   console.log(x);
 
-      // Converion Factors
-      const oneSecond = 1000;
-      const oneMinute = oneSecond * 60;
-      const oneHour = oneMinute * 60;
-      const oneDay = oneHour * 24;
+    //   const differenceInMilliSeconds = Date.now() - x;
 
-      const differenceInSeconds = differenceInMilliSeconds / oneSecond;
-      const diffInMins = differenceInMilliSeconds / oneMinute;
-      const diffInHours = differenceInMilliSeconds / oneHour;
-      const diffInDays = differenceInMilliSeconds / oneDay;
+    //   // Converion Factors
+    //   const oneSecond = 1000;
+    //   const oneMinute = oneSecond * 60;
+    //   const oneHour = oneMinute * 60;
+    //   const oneDay = oneHour * 24;
 
-      console.log('Diff in days', diffInDays);
-    })
+    //   const differenceInSeconds = differenceInMilliSeconds / oneSecond;
+    //   const diffInMins = differenceInMilliSeconds / oneMinute;
+    //   const diffInHours = differenceInMilliSeconds / oneHour;
+    //   const diffInDays = differenceInMilliSeconds / oneDay;
+
+    //   console.log('Diff in days', diffInDays);
+    // })
 
     res.render('myDrive', {
         title: 'My Drive',
@@ -128,6 +156,8 @@ module.exports.myDriveGetRoute = [
         isEditing: isEditing,
         targetId: parseInt(req.query.targetId),
         files: myDrive.files,
+        isSharing: isSharing,
+        shareId: req.query.sharing
     });
   },
 ];
