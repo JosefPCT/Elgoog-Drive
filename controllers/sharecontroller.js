@@ -41,11 +41,24 @@ module.exports.shareIdGetRoute = async (req, res, next ) => {
   console.log(diffInDays);
   if(shareData.expiry > diffInDays){
     console.log("Link not expired");
-    let data = await queries.getFolderById(shareData.folderId);
-    console.log(data);
+    let folder = await queries.getFolderById(parseInt(shareData.folderId));
+    let data = [...folder.subfolders, ...folder.files];
+
+    // const user = { firstName: 'unknown', lastName: 'unknown' };
+    const user = await queries.getCurrentUserById(folder.userId);
+
+    res.render('pages/share/shareId', {
+    title: 'Shared Folder',
+    user: req.user,
+    folderId: 1,
+    data: data,
+    urlWithoutQuery: 'a',
+    user: user
+  })
   } else {
     console.log("Link Expired");
+    res.send("Link has expired");
   }
 
-  res.send('Share Id');
+  
 }
