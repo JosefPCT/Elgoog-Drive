@@ -4,12 +4,14 @@ const queries = require("../db/queries");
 const { isAuth } = require("./utils/authMiddleware");
 const upload = require("../config/multer");
 
-// Validation
+// Validation Error messages stored
 const emptyErr = `must not be empty`;
 const subfolderNameExistsErr = 'Subfolder name exists already';
 
-// Custom validator
+// Custom Validators
 
+// Checks the database if a folder already exists by the passed name, uses the 'req' object to get the parentFolderId to search through
+// Throws an error if data is found
 const subfolderNameExists = async(value, { req }) => {
   console.log("Validating subfolder name....");
   console.log(value);
@@ -22,6 +24,8 @@ const subfolderNameExists = async(value, { req }) => {
   return true;
 }
 
+// Custom validator to check if the new passed value is not the same as the previous one, then checks if there is already a folder name as the new passed value
+// Will throw an error if there is
 const notSameAndValidSubfolderName = async(value,  { req }) => {
   let previousFolderData = await queries.getFolderById(parseInt(req.body.folder_id));
   if(value !== previousFolderData.name){
@@ -33,6 +37,8 @@ const notSameAndValidSubfolderName = async(value,  { req }) => {
   return true;
 }
 
+// Validation
+// Uses methods from express-validator package
 validateFolder = [
   body("folder_name").trim().notEmpty().withMessage(`Folder name ${emptyErr}`).custom(subfolderNameExists),
   body("parentFolderId").trim().notEmpty().withMessage(`Parent folder id ${emptyErr}`),
@@ -56,7 +62,14 @@ validateEditFolder = [
   
 ]
 
-// Post Route
+// Post Routes
+
+// Handler for POST route of '/drive/folder/new'
+// Uses middleware of isAuth to check if current user in session is authorized
+// Uses middleware of validateFolder to validate the sent data from req.body to the route
+// Checks for validation errors using method from express validator ( validationResult ), renders an error page if theres a validation errors
+// Then creates data in the DB using a query
+// Redirects to the previous url
 module.exports.newFolderPostRoute = [
   isAuth,
   validateFolder,
@@ -83,6 +96,9 @@ module.exports.newFolderPostRoute = [
   },
 ];
 
+// Handler for POST route of '/drive/folder/:folderId
+// Uses isAuth middleware
+// Similar to the handler for the GET route, with a differece of having a sortOrder object and conditional query to get the actual folder data
 module.exports.folderIdPostRoute = [
   isAuth,
   async(req, res, next) => {
@@ -93,8 +109,7 @@ module.exports.folderIdPostRoute = [
     const isEditing = req.query.mode === 'edit';
     const isSharing = !!req.query.sharing;
     
-    
-
+  
     let sortOrder = ( req.body.isAsc === "true" ) ? "false" : "true";
     console.log(sortOrder);
     let folder;
@@ -138,6 +153,10 @@ module.exports.folderIdPostRoute = [
   }
 ]
 
+// POST route handler for '/drive/folder/:folderId/edit'
+// Uses middlewares such as: isAuth and validateEditFolder
+// Checks for errors in validation, renders an error page if there is
+// Changes the folder name if no validation error then redirects to the previousUrl
 module.exports.editFolderIdPostRoute = [
   isAuth,
   validateEditFolder,
@@ -161,6 +180,8 @@ module.exports.editFolderIdPostRoute = [
   }
 ]
 
+// POST route handler for '/drive/folder/:folderId/delete'
+// Handles delete request of folders then redirects to the specified url
 module.exports.deleteFolderIdPostRoute = [
   isAuth,
   async (req, res, next) => {
@@ -176,6 +197,11 @@ module.exports.deleteFolderIdPostRoute = [
 
 // Get Route
 
+// Route handler for GET route for '/drive/folder/:folderId'
+// Uses isAuth middleware
+// Creates multiple objects/data to pass on to the view to render including
+// A nav object to create the navigation heading for the folders
+// Also checks if theres a query parameter, for editing and sharing features
 module.exports.folderIdGetRoute = [
   isAuth,
   async (req, res, next) => {

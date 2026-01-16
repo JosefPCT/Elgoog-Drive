@@ -1,3 +1,5 @@
+// Separated query file for organization
+// Used in multiple controllers
 const prisma = require("../db/client");
 
 // Search Queries

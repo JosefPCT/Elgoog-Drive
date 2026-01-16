@@ -1,9 +1,12 @@
 // public/js/modalHandler.js
+// Will need to be imported in the views where the modal are using <script src=></script>
+// In turn, will need to have a parser in 'app.js' to be able to separate itself using a 'public' folder (express.static)
 
 // Create Folder Modal Handler
 const createFolderModal = document.getElementById('createFolderModal');
 const createFolderModalCloseButton = document.querySelector('.createFolderModal.close-button');
 
+// Helper function to open the create folder modal
 
 function openCreateFolderModal() {
   // let node = e.target;

@@ -1,9 +1,10 @@
+// Separated config file to use passport package, used in 'app.js'
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const prisma = require("../db/client");
 const { validatePassword } = require("../controllers/utils/passwordUtils");
 
-// Custom form field names besides the default 'username' and 'password' can be defined as a custom field
+// Custom form field names besides the default 'username' and 'password' can be defined as a custom field here
 const customFields = {
   usernameField: "email",
   passwordField: "password",
@@ -38,10 +39,11 @@ const verifyCallback = async (username, password, done) => {
   }
 };
 
+// To declare what strategy to use and passes on the verify callback and other optional fields such as custom form field names (customFields)
 const strategy = new LocalStrategy(customFields, verifyCallback);
-
 passport.use(strategy);
 
+// Passport also needs a serializeUser and deserializeUser functions to check them in and out of the session
 passport.serializeUser((user, done) => {
   done(null, user.id);
 });

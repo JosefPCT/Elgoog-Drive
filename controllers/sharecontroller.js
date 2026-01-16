@@ -1,6 +1,7 @@
 const queries = require('../db/queries');
 
-
+// Handler for creating the Share data when sharing a folder, redirects to the previous url with a search query to handle a modal that will appear
+// Handles form data of: parentFolderId, previousUrl, expiryDay
 module.exports.newSharePostRoute = async (req, res, next) => {
   console.log(req.body);
   let data = await queries.createAndReturnShareData(parseInt(req.body.expiryDay), parseInt(req.body.parentFolderId));
@@ -16,6 +17,9 @@ module.exports.newSharePostRoute = async (req, res, next) => {
   res.redirect(`${previousUrl}?sharing=${data.id}`);
 }
 
+// Post handler for /share/:id/folder/:folderId
+// Similar to the GET handler, with a minor difference of handling sorting
+// Handles form data of: _method, colName, isAsc
 module.exports.shareFolderIdPostRoute = async(req, res, next) => {
   let shareData = await queries.findShareDataById(req.params.id);
   let createdAt = shareData.createdAt;
@@ -66,7 +70,9 @@ module.exports.shareFolderIdPostRoute = async(req, res, next) => {
 // GET Route
 
 
-
+// Handler for /share/:id route 
+// Gets the shared data specifically the createdAt column to check if the link already expired, will show an expiry page if it is
+// If not, will get folder data according to the folder shared
 module.exports.shareIdGetRoute = async (req, res, next ) => {
   console.log(req.params.id);
 
@@ -112,6 +118,8 @@ module.exports.shareIdGetRoute = async (req, res, next ) => {
   }
 }
 
+// Handler for /share/:id/folder/:folderId
+// Similar to shareIdGetRoute with minor difference, the value of folderId
 module.exports.shareFolderIdGetRoute = async(req, res, next) =>{
 
   let shareData = await queries.findShareDataById(req.params.id);
@@ -151,6 +159,9 @@ module.exports.shareFolderIdGetRoute = async(req, res, next) =>{
   }
 }
 
+// Handler for /share/:id/file/:fileId Route
+// Exactly similar to the handler in fileController.js 
+// Gets data from a query and passes it to the view
 module.exports.shareFileIdGetRoute = async(req, res, next) => {
   const fileId = req.params.fileId;
   console.log(fileId);

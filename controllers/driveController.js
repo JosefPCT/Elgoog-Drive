@@ -6,6 +6,8 @@ const upload = require("../config/multer");
 
 // Post Routes
 
+// POST route handler for route '/drive'
+// Deprecated, can remove route
 module.exports.drivePostRoute = [
   upload.single("uploaded_file"),
   async (req, res, next) => {
@@ -15,6 +17,7 @@ module.exports.drivePostRoute = [
   },
 ];
 
+// POST route handler for route '/drive/my-drive'
 // Almost the same its GET Route, but with handling logic for sorting
 module.exports.myDrivePostRoute = [
   isAuth,
@@ -60,6 +63,8 @@ module.exports.myDrivePostRoute = [
 
 // Get Routes
 
+// GET route handler for route '/drive'
+// Deprecated, can remove
 module.exports.driveGetRoute = [
   isAuth,
   async (req, res, next) => {
@@ -70,7 +75,10 @@ module.exports.driveGetRoute = [
   },
 ];
 
+// GET route handle for route '/drive/my-drive'
 // Gets the current user in the session and uses the id of that user to search for its main drive/folder
+// Gets data from DB using multiple queries and passing it to the view
+// View will handle depending if data is empty or not, or via a flag such as if isEditing or isSharing's value is true
 module.exports.myDriveGetRoute = [
   isAuth,
   async (req, res, next) => {
@@ -80,36 +88,36 @@ module.exports.myDriveGetRoute = [
     const isEditing = req.query.mode === 'edit';
     const isSharing = !!req.query.sharing;
 
-    console.log(isSharing);
-    if(isSharing){
-      const data = await queries.findShareDataById(req.query.sharing);
-      console.log('Getting share data...', data);
-      let createdAt = data.createdAt;
+    // console.log(isSharing);
+    // if(isSharing){
+    //   const data = await queries.findShareDataById(req.query.sharing);
+    //   console.log('Getting share data...', data);
+    //   let createdAt = data.createdAt;
 
-      console.log("Calculating...");
-      console.log(Date.now())
-      console.log(createdAt);
-      console.log(createdAt.getTime());
-      console.log(Date.now() - createdAt.getTime());
-      const differenceInMilliSeconds = Date.now() - createdAt;
-      console.log(differenceInMilliSeconds);
+    //   console.log("Calculating...");
+    //   console.log(Date.now())
+    //   console.log(createdAt);
+    //   console.log(createdAt.getTime());
+    //   console.log(Date.now() - createdAt.getTime());
+    //   const differenceInMilliSeconds = Date.now() - createdAt;
+    //   console.log(differenceInMilliSeconds);
 
-      const oneSecond = 1000;
-      const oneMinute = oneSecond * 60;
-      const oneHour = oneMinute * 60;
-      const oneDay = oneHour * 24;
+    //   const oneSecond = 1000;
+    //   const oneMinute = oneSecond * 60;
+    //   const oneHour = oneMinute * 60;
+    //   const oneDay = oneHour * 24;
 
-      const differenceInSeconds = differenceInMilliSeconds / oneSecond;
-      const diffInMins = differenceInMilliSeconds / oneMinute;
-      const diffInHours = differenceInMilliSeconds / oneHour;
-      const diffInDays = differenceInMilliSeconds / oneDay;
+    //   const differenceInSeconds = differenceInMilliSeconds / oneSecond;
+    //   const diffInMins = differenceInMilliSeconds / oneMinute;
+    //   const diffInHours = differenceInMilliSeconds / oneHour;
+    //   const diffInDays = differenceInMilliSeconds / oneDay;
 
-      console.log("Difference in days", diffInDays);
+    //   console.log("Difference in days", diffInDays);
 
-      if(data.expiry > diffInDays){
-        console.log("Not expired");
-      }
-    }
+    //   if(data.expiry > diffInDays){
+    //     console.log("Not expired");
+    //   }
+    // }
    
     // console.log("Current data of user:", currentUser);
     // console.log('Drive', myDrive);

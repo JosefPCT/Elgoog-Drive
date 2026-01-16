@@ -1,3 +1,4 @@
+// Config file to use cloudinary package
 require('dotenv').config();
 const cloudinary = require('cloudinary').v2;
 

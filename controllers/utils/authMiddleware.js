@@ -1,3 +1,4 @@
+// Helper middleware to use in route handlers to check if user is authenticated
 module.exports.isAuth = (req, res, next) => {
     // This is how you check if a user is authenticated and protect a route.  You could turn this into a custom middleware to make it less redundant
     if (req.isAuthenticated()) {
@@ -7,6 +8,7 @@ module.exports.isAuth = (req, res, next) => {
     }
 };
 
+// Helper middleware to use in route handlers to check if user is authenticated and if user is an admin
 // module.exports.isAdmin = (req, res, next) => {
 //     if (req.isAuthenticated() && req.user.admin) {
 //         next();

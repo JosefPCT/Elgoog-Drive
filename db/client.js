@@ -1,3 +1,4 @@
+// Separated config file for local database
 require('dotenv').config();
 const { PrismaClient } = require('../src/generated/prisma')
 

@@ -17,8 +17,14 @@ app.set('view engine', 'ejs');
 app.set('views', './views');
 
 // Parsers
+
+// Allows the use of static code such as CSS and clientside JS, uses 'path' package to create the path of the 'public' folder/directory
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Allows parsing of POST forms
 app.use(express.urlencoded({ extended: true }));
+
+// Allows parsing of JSON
 app.use(express.json());
 
 // Session and SessionStore Setup
@@ -56,9 +62,7 @@ app.use((req, res, next) => {
   next();
 });
 
-
-
-
+// Route middlwares
 app.use('/', indexRouter);
 app.use('/drive', driveRouter);
 app.use('/share', shareRoute);

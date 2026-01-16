@@ -8,6 +8,13 @@ const supabase = require('../config/supabase').supabase;
 
 // Post Route
 
+// POST Route handler for 'drive/file/new'
+// Checks if user uploaded a file by checking 'req.file'
+// Using multer, we can use the 'req.file' object 
+// Uploads the file to supabase usings its methods with the help of multer to process the uploaded file
+// Using multer, we can use the 'req.file' object 
+// Checks if file uploaded correctly with no error,  then create the entry to the db to store the public url of the file
+// Then redirects to the previous url
 module.exports.fileNewPostRoute = [
   upload.single("uploaded_file"),
   async (req, res, next) => {
@@ -105,6 +112,8 @@ module.exports.fileNewPostRoute = [
 
 // Get Route
 
+// GET route handler for route '/drive/file/:fileId'
+// Gets the data from the DB then passes on the data as an object to the rendered view
 module.exports.fileIdGetRoute = [
   isAuth,
   async (req, res, next) => {

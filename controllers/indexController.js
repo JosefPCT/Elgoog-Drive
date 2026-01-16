@@ -6,11 +6,14 @@ const { validatePassword, genPassword } = require("./utils/passwordUtils");
 const { isAuth } = require('./utils/authMiddleware');
 const upload = require("../config/multer");
 
-// Validation
+// Validation Messages 
 const emptyErr = `must not be empty`;
 const notSamePassErr = `Password field and Confirm Password field must be the same`;
 const emailAlreadyExistsErr = `Email already exists.`;
 
+// Custom Validators
+
+// Custom validator to check if both password and confirm password field is the same value
 const isSamePass = (value, { req }) => {
   if (value !== req.body.password) {
     throw new Error(notSamePassErr);
@@ -18,6 +21,7 @@ const isSamePass = (value, { req }) => {
   return true;
 };
 
+// Custom validator to check if email already exists in the DB
 const emailExists = async (value) => {
   const data = await queries.findUserByEmail(value);
   if (data) {
@@ -26,6 +30,8 @@ const emailExists = async (value) => {
   return true;
 };
 
+// Validation
+// Uses custom methods from express-validator package
 const validateUser = [
   body("email")
     .trim()
@@ -53,6 +59,9 @@ const validateUser = [
 
 // Post Routes
 
+// POST route handler for route '/register'
+// Checks for validation errors with express-validator package
+// If no error, generates a hashed password and inserts the data to the DB
 module.exports.registerPostRoute = [
   validateUser,
   async (req, res, next) => {
@@ -72,10 +81,14 @@ module.exports.registerPostRoute = [
     const user = await queries.createUserAndMainFolderThenReturn(email,hash, first_name,last_name);
     // console.log('Created user id', user.id);
     // await queries.createMainDriveOfUserById(user.id);
+
+    // Might need to redirect instead
     res.send("Post route");
   },
 ];
 
+// POST route handler for route '/login'
+// Uses passport package to authenticate users, which in turns uses express-session
 module.exports.loginPostRoute = [
   passport.authenticate('local', {
     failureRedirect: '/login-failure',
@@ -86,6 +99,9 @@ module.exports.loginPostRoute = [
 
 
 // Get Routes
+
+// GET route handler for route '/'
+// Only job is to redirect to a route depending if user is authenticated or not
 module.exports.indexGetRoute = async (req, res, next) => {
   // const allusers = await prisma.user.findMany();
   // res.send(allusers);
@@ -118,18 +134,24 @@ module.exports.indexGetRoute = async (req, res, next) => {
   // });
 };
 
+// GET route handler for route '/register'
+// Renders a register view with a form
 module.exports.registerGetRoute = (req, res, next) => {
   res.render("register", {
     title: "Register",
   });
 };
 
+// GET route handler for route '/login'
+// Renders a login view with a form
 module.exports.loginGetRoute = (req, res, next) => {
   res.render('login', {
     title: 'Login'
   })
 }
 
+// GET route handler for route '/login-success'
+// Used in conjuction with the POST route handler for login
 module.exports.loginSuccessGetRoute = (req, res, next) => {
   console.log('Login Success, showing user');
   console.log(req.user);
@@ -138,19 +160,14 @@ module.exports.loginSuccessGetRoute = (req, res, next) => {
   res.redirect('/drive/my-drive');
 }
 
+// GET route handler for route '/login-failure'
+// Used in conjuction with the POST route handler for login
 module.exports.loginFailureGetRoute = (req, res, next) => {
   res.send('You entered the wrong password.');
 }
 
-
-
-module.exports.protectedGetRoute = [
-  isAuth,
-  async(req, res, next) => {
-    res.send("Protected Route");
-  }
-]
-
+// Get route handler for route '/logout'
+// Uses the method `req.logout` from the 'passport' package to logout the user in session and redirects to the index page if no error
 module.exports.logoutGetRoute = (req, res, next) => {
   // `req.logout()` is now asynchronous now needs a callback
   req.logout((err) => {
@@ -159,3 +176,13 @@ module.exports.logoutGetRoute = (req, res, next) => {
     res.redirect('/');
   });
 }
+
+// Test route, not used in production
+// To test isAuth middleware if working correctly
+module.exports.protectedGetRoute = [
+  isAuth,
+  async(req, res, next) => {
+    res.send("Protected Route");
+  }
+]
+
