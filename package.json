@@ -1,7 +1,7 @@
 {
   "dependencies": {
-    "@prisma/adapter-pg": "^7.0.0",
-    "@prisma/client": "^7.0.0",
+    "@prisma/adapter-pg": "^7.2.0",
+    "@prisma/client": "^7.2.0",
     "@quixo3/prisma-session-store": "^3.1.13",
     "@supabase/supabase-js": "^2.87.1",
     "bcryptjs": "^3.0.3",
@@ -21,14 +21,13 @@
   "description": "A project that lets users upload files and share files, using NodeJS, Express and Prisma.",
   "main": "index.js",
   "devDependencies": {
-    "prisma": "^7.0.0"
+    "prisma": "^7.2.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node --watch app.js",
     "start": "node app.js",
     "build": "npx prisma generate"
-    
   },
   "repository": {
     "type": "git",
