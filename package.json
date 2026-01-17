@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "prisma": "^7.0.0",
     "@prisma/adapter-pg": "^7.0.0",
     "@prisma/client": "^7.0.0",
     "@quixo3/prisma-session-store": "^3.1.13",
@@ -22,13 +21,13 @@
   "description": "A project that lets users upload files and share files, using NodeJS, Express and Prisma.",
   "main": "index.js",
   "devDependencies": {
-    
+    "prisma": "^7.0.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node --watch app.js",
     "start": "node app.js",
-    "build": "prisma generate && prisma migrate deploy"
+    "build": "npx prisma generate && npx prisma migrate deploy"
     
   },
   "repository": {
