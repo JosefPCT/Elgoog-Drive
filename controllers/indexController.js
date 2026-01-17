@@ -83,7 +83,7 @@ module.exports.registerPostRoute = [
     // await queries.createMainDriveOfUserById(user.id);
 
     // Might need to redirect instead
-    res.send("Post route");
+    res.redirect('/');
   },
 ];
 
