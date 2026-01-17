@@ -1,6 +1,6 @@
 // Separated query file for organization
 // Used in multiple controllers
-const prisma = require("../db/client");
+const prisma = require("../db/client.js");
 
 // Search Queries
 

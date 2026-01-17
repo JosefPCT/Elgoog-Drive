@@ -1,6 +1,6 @@
 // Separated config file for local database
 require('dotenv').config();
-const { PrismaClient } = require('../src/generated/prisma')
+const { PrismaClient } = require('../src/generated/prisma/client.js')
 
 // Driver Adapter for Postgres
 const { PrismaPg } = require('@prisma/adapter-pg');
